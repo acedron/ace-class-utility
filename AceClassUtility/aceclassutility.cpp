@@ -19,11 +19,34 @@
 #include "aceclassutility.h"
 #include "ui_aceclassutility.h"
 
+#include "../AceClassUtility_CreateClass/aceclassutility_createclass.h"
+
+#include <QFile>
+#include <QDir>
+#include <QPushButton>
+
 AceClassUtility::AceClassUtility(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::AceClassUtility)
 {
     ui->setupUi(this);
+
+    AceClassUtility::startLoading();
+
+    if (!QDir("AceClassUtility").exists())
+        QDir().mkdir("AceClassUtility");
+
+    QDir d("AceClassUtility");
+    if (d.isEmpty()) {
+        AceClassUtility_CreateClass *createClassDialog = new AceClassUtility_CreateClass;
+        createClassDialog->show();
+
+        QObject::connect(createClassDialog, SIGNAL(rejected()),
+                         this, SLOT(discardExit()));
+        QObject::connect(createClassDialog, SIGNAL(accepted()),
+                         this, SLOT(stopLoading()));
+    } else
+        AceClassUtility::stopLoading();
 }
 
 AceClassUtility::~AceClassUtility()
@@ -31,3 +54,51 @@ AceClassUtility::~AceClassUtility()
     delete ui;
 }
 
+void AceClassUtility::startLoading()
+{
+    ui->loading->show();
+    ui->loading->setEnabled(true);
+    ui->main->hide();
+    ui->main->setEnabled(false);
+}
+
+void AceClassUtility::stopLoading()
+{
+    ui->loading->hide();
+    ui->loading->setEnabled(false);
+    ui->main->show();
+    ui->main->setEnabled(true);
+
+    QDir d("AceClassUtility");
+    QStringList classes = d.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
+    for (int i = 0; i < classes.size(); i++) {
+        QPushButton *button = new QPushButton();
+        button->setText(classes[i]);
+        button->setFlat(true);
+        button->setIcon(QIcon(QString("accessories-text-editor")));
+        QFont font = button->font();
+        font.setBold(true);
+        button->setFont(font);
+        ui->classes->addWidget(button);
+        button->show();
+        QObject::connect(button, SIGNAL(released()),
+                         this, SLOT(openClass()));
+    }
+}
+
+void AceClassUtility::openClass()
+{
+    QPushButton *buttonSender = qobject_cast<QPushButton*>(sender());
+    QString className = buttonSender->text();
+    qDebug("%s", qPrintable(className));
+}
+
+void AceClassUtility::discardExit()
+{
+    QDir d("AceClassUtility");
+
+    if (d.removeRecursively())
+        QApplication::exit(0);
+    else
+        QApplication::exit(1);
+}

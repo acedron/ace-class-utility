@@ -15,30 +15,31 @@
 ** You should have received a copy of the GNU General Public License
 ** along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ****************************************************************************/
-#ifndef ACECLASSUTILITY_H
-#define ACECLASSUTILITY_H
 
-#include <QMainWindow>
+#ifndef ACECLASSUTILITY_CREATECLASS_H
+#define ACECLASSUTILITY_CREATECLASS_H
 
-QT_BEGIN_NAMESPACE
-namespace Ui { class AceClassUtility; }
-QT_END_NAMESPACE
+#include <QDialog>
 
-class AceClassUtility : public QMainWindow
+namespace Ui {
+class AceClassUtility_CreateClass;
+}
+
+class AceClassUtility_CreateClass : public QDialog
 {
     Q_OBJECT
 
 public:
-    AceClassUtility(QWidget *parent = nullptr);
-    ~AceClassUtility();
+    explicit AceClassUtility_CreateClass(QWidget *parent = nullptr);
+    ~AceClassUtility_CreateClass();
 
-public slots:
-    void startLoading();
-    void stopLoading();
-    void openClass();
-    void discardExit();
+private slots:
+    void on_cancelButton_released();
+
+    void on_confirmButton_released();
 
 private:
-    Ui::AceClassUtility *ui;
+    Ui::AceClassUtility_CreateClass *ui;
 };
-#endif // ACECLASSUTILITY_H
+
+#endif // ACECLASSUTILITY_CREATECLASS_H

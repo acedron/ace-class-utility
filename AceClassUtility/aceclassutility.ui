@@ -6,17 +6,180 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>603</width>
+    <height>356</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string>AceClassUtility</string>
+  <property name="maximumSize">
+   <size>
+    <width>603</width>
+    <height>356</height>
+   </size>
   </property>
-  <widget class="QWidget" name="centralwidget"/>
-  <widget class="QMenuBar" name="menubar"/>
-  <widget class="QStatusBar" name="statusbar"/>
+  <property name="baseSize">
+   <size>
+    <width>603</width>
+    <height>356</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Ace Class Utility</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../main.qrc">
+    <normaloff>:/icons/icon.png</normaloff>:/icons/icon.png</iconset>
+  </property>
+  <widget class="QWidget" name="mainMenu">
+   <property name="maximumSize">
+    <size>
+     <width>603</width>
+     <height>356</height>
+    </size>
+   </property>
+   <property name="baseSize">
+    <size>
+     <width>0</width>
+     <height>0</height>
+    </size>
+   </property>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="QLabel" name="iconLabel">
+      <property name="minimumSize">
+       <size>
+        <width>288</width>
+        <height>338</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>288</width>
+        <height>338</height>
+       </size>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap resource="../main.qrc">:/icons/icon.png</pixmap>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="2">
+     <widget class="QWidget" name="loading" native="true">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="0" column="0">
+        <widget class="QLabel" name="titleLabel">
+         <property name="minimumSize">
+          <size>
+           <width>273</width>
+           <height>320</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>273</width>
+           <height>320</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>34</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+           <strikeout>false</strikeout>
+           <stylestrategy>PreferDefault</stylestrategy>
+           <kerning>true</kerning>
+          </font>
+         </property>
+         <property name="text">
+          <string>Ace Class Utility</string>
+         </property>
+         <property name="textFormat">
+          <enum>Qt::MarkdownText</enum>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QWidget" name="main" native="true">
+      <layout class="QGridLayout" name="gridLayout_3">
+       <item row="0" column="0">
+        <widget class="QLabel" name="classesTitle">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>34</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+           <strikeout>false</strikeout>
+           <stylestrategy>PreferDefault</stylestrategy>
+           <kerning>true</kerning>
+          </font>
+         </property>
+         <property name="text">
+          <string>Classes</string>
+         </property>
+         <property name="textFormat">
+          <enum>Qt::MarkdownText</enum>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="1" column="0">
+        <layout class="QVBoxLayout" name="classes"/>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+   <zorder>loading</zorder>
+   <zorder>iconLabel</zorder>
+   <zorder>main</zorder>
+  </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="../main.qrc"/>
+ </resources>
  <connections/>
 </ui>
