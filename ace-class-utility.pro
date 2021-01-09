@@ -9,17 +9,29 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    AceClassUtility_Attendance/aceclassutility_attendance.cpp \
+    AceClassUtility_Class/aceclassutility_class.cpp \
     AceClassUtility_CreateClass/aceclassutility_createclass.cpp \
+    AceClassUtility_StudentList/aceclassutility_studentlist.cpp \
+    AceClassUtility_TakeAttendance/aceclassutility_takeattendance.cpp \
     main.cpp \
     AceClassUtility/aceclassutility.cpp
 
 HEADERS += \
     AceClassUtility/aceclassutility.h \
-    AceClassUtility_CreateClass/aceclassutility_createclass.h
+    AceClassUtility_Attendance/aceclassutility_attendance.h \
+    AceClassUtility_Class/aceclassutility_class.h \
+    AceClassUtility_CreateClass/aceclassutility_createclass.h \
+    AceClassUtility_StudentList/aceclassutility_studentlist.h \
+    AceClassUtility_TakeAttendance/aceclassutility_takeattendance.h
 
 FORMS += \
     AceClassUtility/aceclassutility.ui \
-    AceClassUtility_CreateClass/aceclassutility_createclass.ui
+    AceClassUtility_Attendance/aceclassutility_attendance.ui \
+    AceClassUtility_Class/aceclassutility_class.ui \
+    AceClassUtility_CreateClass/aceclassutility_createclass.ui \
+    AceClassUtility_StudentList/aceclassutility_studentlist.ui \
+    AceClassUtility_TakeAttendance/aceclassutility_takeattendance.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

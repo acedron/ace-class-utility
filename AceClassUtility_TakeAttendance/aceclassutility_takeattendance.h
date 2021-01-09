@@ -15,36 +15,31 @@
 ** You should have received a copy of the GNU General Public License
 ** along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ****************************************************************************/
-#ifndef ACECLASSUTILITY_H
-#define ACECLASSUTILITY_H
+#ifndef ACECLASSUTILITY_TAKEATTENDANCE_H
+#define ACECLASSUTILITY_TAKEATTENDANCE_H
 
-#include <QMainWindow>
+#include <QDialog>
+#include <QTime>
 
-QT_BEGIN_NAMESPACE
-namespace Ui { class AceClassUtility; }
-QT_END_NAMESPACE
+namespace Ui {
+class AceClassUtility_TakeAttendance;
+}
 
-class AceClassUtility : public QMainWindow
+class AceClassUtility_TakeAttendance : public QDialog
 {
     Q_OBJECT
 
 public:
-    AceClassUtility(QWidget *parent = nullptr);
-    ~AceClassUtility();
+    explicit AceClassUtility_TakeAttendance(QWidget *parent = nullptr);
+    ~AceClassUtility_TakeAttendance();
+    QString className;
+    QTime attendanceTime;
 
 public slots:
-    void startLoading();
-    void stopLoading();
-    void stopLoadingAndRegenerate();
-    void stopLoadingCreatedNewClass(QString newClassName);
-    void openClass();
-    void closedClass();
-    void discardExit();
-
-private slots:
-    void on_newClassButton_released();
+    void opened(QString className);
 
 private:
-    Ui::AceClassUtility *ui;
+    Ui::AceClassUtility_TakeAttendance *ui;
 };
-#endif // ACECLASSUTILITY_H
+
+#endif // ACECLASSUTILITY_TAKEATTENDANCE_H

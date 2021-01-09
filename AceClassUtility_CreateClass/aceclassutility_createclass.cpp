@@ -62,6 +62,7 @@ void AceClassUtility_CreateClass::on_confirmButton_released()
             xml.writeEndElement();
             f.close();
 
+            emit createdClass(className);
             QDialog::accept();
         }
     }

@@ -15,7 +15,6 @@
 ** You should have received a copy of the GNU General Public License
 ** along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ****************************************************************************/
-
 #ifndef ACECLASSUTILITY_CREATECLASS_H
 #define ACECLASSUTILITY_CREATECLASS_H
 
@@ -32,6 +31,9 @@ class AceClassUtility_CreateClass : public QDialog
 public:
     explicit AceClassUtility_CreateClass(QWidget *parent = nullptr);
     ~AceClassUtility_CreateClass();
+
+signals:
+    void createdClass(QString newClassName);
 
 private slots:
     void on_cancelButton_released();
