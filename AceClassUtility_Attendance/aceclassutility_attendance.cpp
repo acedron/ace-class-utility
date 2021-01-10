@@ -37,8 +37,18 @@ AceClassUtility_Attendance::~AceClassUtility_Attendance()
 void AceClassUtility_Attendance::opened(QString className)
 {
     AceClassUtility_Attendance::className = className;
-    ui->classNameLabel->setText(className + " - Attendance");
-    setWindowTitle("Ace Class Utility - " + className + " - Attendance");
+    ui->classNameLabel->setText(AceClassUtility_Attendance::className + " - Attendance");
+    setWindowTitle("Ace Class Utility - " + AceClassUtility_Attendance::className + " - Attendance");
+}
+
+void AceClassUtility_Attendance::dialogClosed()
+{
+    show();
+}
+
+void AceClassUtility_Attendance::attendanceTaken(QString filePath)
+{
+    // Open attendance report for <filePath>.
 }
 
 void AceClassUtility_Attendance::on_backButton_released()
@@ -60,13 +70,10 @@ void AceClassUtility_Attendance::on_takeAttendanceButton_released()
 {
     AceClassUtility_TakeAttendance *takeAttendance = new AceClassUtility_TakeAttendance();
     takeAttendance->show();
-    QObject::connect(takeAttendance, SIGNAL(finished(int)),
+    QObject::connect(takeAttendance, SIGNAL(rejected()),
                      this, SLOT(dialogClosed()));
+    QObject::connect(takeAttendance, SIGNAL(attendanceTaken(QString)),
+                     this, SLOT(attendanceTaken(QString)));
     takeAttendance->opened(AceClassUtility_Attendance::className);
     hide();
-}
-
-void AceClassUtility_Attendance::dialogClosed()
-{
-    show();
 }

@@ -38,10 +38,10 @@ AceClassUtility_StudentList::~AceClassUtility_StudentList()
 void AceClassUtility_StudentList::opened(QString className)
 {
     AceClassUtility_StudentList::className = className;
-    ui->titleLabel->setText(className + " - Student List");
-    setWindowTitle("Ace Class Utility - " + className + " - Student List");
+    ui->titleLabel->setText(AceClassUtility_StudentList::className + " - Student List");
+    setWindowTitle("Ace Class Utility - " + AceClassUtility_StudentList::className + " - Student List");
 
-    QFile f("AceClassUtility/" + className + "/studentList.json");
+    QFile f("AceClassUtility/" + AceClassUtility_StudentList::className + "/studentList.json");
     if (f.open(QIODevice::ReadOnly | QIODevice::Text)) {
         QString jsonString = f.readAll();
         QJsonDocument doc = QJsonDocument::fromJson(jsonString.toUtf8());

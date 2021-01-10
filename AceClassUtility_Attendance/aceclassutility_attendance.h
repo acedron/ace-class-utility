@@ -36,6 +36,7 @@ public:
 public slots:
     void opened(QString className);
     void dialogClosed();
+    void attendanceTaken(QString filePath);
 
 private slots:
     void on_backButton_released();

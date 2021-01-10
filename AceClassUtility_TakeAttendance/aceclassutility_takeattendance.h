@@ -19,7 +19,7 @@
 #define ACECLASSUTILITY_TAKEATTENDANCE_H
 
 #include <QDialog>
-#include <QTime>
+#include <QJsonArray>
 
 namespace Ui {
 class AceClassUtility_TakeAttendance;
@@ -33,10 +33,21 @@ public:
     explicit AceClassUtility_TakeAttendance(QWidget *parent = nullptr);
     ~AceClassUtility_TakeAttendance();
     QString className;
-    QTime attendanceTime;
+    QDateTime attendanceDateTime;
+    QJsonArray students;
+    QMap<QString, int> attendanceMap;
+
+signals:
+    void attendanceTaken(QString filePath);
 
 public slots:
     void opened(QString className);
+    void studentStateChanged(int state);
+
+private slots:
+    void on_cancelButton_released();
+
+    void on_confirmButton_released();
 
 private:
     Ui::AceClassUtility_TakeAttendance *ui;

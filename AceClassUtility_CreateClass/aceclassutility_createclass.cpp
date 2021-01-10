@@ -52,18 +52,22 @@ void AceClassUtility_CreateClass::on_confirmButton_released()
         else {
             d.mkdir(className);
 
-            QFile f("AceClassUtility/" + className + "/class.xml");
-            f.open(QIODevice::WriteOnly);
-            QXmlStreamWriter xml(&f);
-            xml.setAutoFormatting(true);
-            xml.writeStartDocument();
-            xml.writeStartElement("properties");
-            xml.writeTextElement("name", className);
-            xml.writeEndElement();
-            f.close();
+            QDir dd("AceClassUtility/" + className);
+            dd.mkdir("attendance");
 
-            emit createdClass(className);
-            QDialog::accept();
+            QFile f("AceClassUtility/" + className + "/class.xml");
+            if (f.open(QIODevice::WriteOnly | QIODevice::Text)) {
+                QXmlStreamWriter xml(&f);
+                xml.setAutoFormatting(true);
+                xml.writeStartDocument();
+                xml.writeStartElement("properties");
+                xml.writeTextElement("name", className);
+                xml.writeEndElement();
+                f.close();
+                emit createdClass(className);
+                QDialog::accept();
+            } else
+                ui->statusLabel->setText("An error occured while creating class!");
         }
     }
 }

@@ -38,8 +38,8 @@ AceClassUtility_Class::~AceClassUtility_Class()
 void AceClassUtility_Class::opened(QString className)
 {
     AceClassUtility_Class::className = className;
-    ui->classNameLabel->setText(className);
-    setWindowTitle("Ace Class Utility - " + className);
+    ui->classNameLabel->setText(AceClassUtility_Class::className);
+    setWindowTitle("Ace Class Utility - " + AceClassUtility_Class::className);
 }
 
 void AceClassUtility_Class::dialogClosed()
