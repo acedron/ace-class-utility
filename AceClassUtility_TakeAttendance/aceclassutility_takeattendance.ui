@@ -29,7 +29,11 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>&lt;className&gt; - Take Attendance</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../main.qrc">
+    <normaloff>:/icons/icon.png</normaloff>:/icons/icon.png</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="2" column="0">
@@ -148,6 +152,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../main.qrc"/>
+ </resources>
  <connections/>
 </ui>

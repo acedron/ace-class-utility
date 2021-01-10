@@ -61,6 +61,7 @@ void AceClassUtility_TakeAttendance::opened(QString className)
                              this, SLOT(studentStateChanged(int)));
             ui->studentList->widget()->layout()->addWidget(checkBox);
         }
+        f.close();
     } else
         AceClassUtility_TakeAttendance::students = QJsonArray();
 }
@@ -91,16 +92,16 @@ void AceClassUtility_TakeAttendance::on_confirmButton_released()
             QJsonObject students;
             int attendeeCount = 0;
             int absentCount = 0;
+            QList<QString> keys = AceClassUtility_TakeAttendance::attendanceMap.keys();
             for (int i = 0; i < AceClassUtility_TakeAttendance::attendanceMap.size(); i++) {
-                QString key = AceClassUtility_TakeAttendance::attendanceMap.keys()[i];
-                int val = AceClassUtility_TakeAttendance::attendanceMap[key];
+                int val = AceClassUtility_TakeAttendance::attendanceMap[keys[i]];
                 if (val >= 1) {
                     attendeeCount += 1;
-                    students.insert(key, QJsonValue(true));
+                    students.insert(keys[i], QJsonValue(true));
                 }
                 else {
                     absentCount += 1;
-                    students.insert(key, QJsonValue(false));
+                    students.insert(keys[i], QJsonValue(false));
                 }
             }
             attendance.insert("attendance", QJsonValue(students));
@@ -110,6 +111,7 @@ void AceClassUtility_TakeAttendance::on_confirmButton_released()
             QJsonDocument doc(attendance);
             QTextStream out(&f);
             out << doc.toJson();
+            f.close();
             emit attendanceTaken("AceClassUtility/" + AceClassUtility_TakeAttendance::className + "/attendance/" +
                                  AceClassUtility_TakeAttendance::attendanceDateTime.toString(Qt::ISODate) + ".json");
             QDialog::accept();

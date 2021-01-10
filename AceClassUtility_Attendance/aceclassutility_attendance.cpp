@@ -21,6 +21,7 @@
 
 #include "../AceClassUtility_StudentList/aceclassutility_studentlist.h"
 #include "../AceClassUtility_TakeAttendance/aceclassutility_takeattendance.h"
+#include "../AceClassUtility_AttendanceReport/aceclassutility_attendancereport.h"
 
 AceClassUtility_Attendance::AceClassUtility_Attendance(QWidget *parent) :
     QDialog(parent),
@@ -48,7 +49,11 @@ void AceClassUtility_Attendance::dialogClosed()
 
 void AceClassUtility_Attendance::attendanceTaken(QString filePath)
 {
-    // Open attendance report for <filePath>.
+    AceClassUtility_AttendanceReport *attendanceReport = new AceClassUtility_AttendanceReport;
+    attendanceReport->show();
+    QObject::connect(attendanceReport, SIGNAL(finished(int)),
+                     this, SLOT(dialogClosed()));
+    attendanceReport->opened(AceClassUtility_Attendance::className, filePath);
 }
 
 void AceClassUtility_Attendance::on_backButton_released()

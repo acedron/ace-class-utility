@@ -51,6 +51,7 @@ void AceClassUtility_StudentList::opened(QString className)
             plainStudentList.append(studentArray[i].toString() + "\n");
         }
         ui->studentListEdit->setPlainText(plainStudentList);
+        f.close();
     }
 }
 
@@ -72,6 +73,7 @@ void AceClassUtility_StudentList::on_saveButton_released()
     if (f.open(QIODevice::WriteOnly | QIODevice::Text)) {
         QTextStream out(&f);
         out << doc.toJson();
+        f.close();
         hide();
     } else {
         ui->statusLabel->setText("An error occured while saving student list!");
