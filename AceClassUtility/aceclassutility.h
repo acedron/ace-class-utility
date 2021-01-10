@@ -32,17 +32,22 @@ public:
     AceClassUtility(QWidget *parent = nullptr);
     ~AceClassUtility();
 
-public slots:
-    void startLoading();
-    void stopLoading();
-    void stopLoadingAndRegenerate();
-    void stopLoadingCreatedNewClass(QString newClassName);
-    void openClass();
-    void closedClass();
-    void discardExit();
-
 private slots:
     void on_newClassButton_released();
+
+    void startLoading();
+
+    void stopLoading();
+
+    void stopLoadingAndRegenerate();
+
+    void stopLoadingCreatedNewClass(QString newClassName);
+
+    void openClass();
+
+    void closedClass();
+
+    void discardExit();
 
 private:
     Ui::AceClassUtility *ui;

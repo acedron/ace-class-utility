@@ -31,12 +31,9 @@ class AceClassUtility_Attendance : public QDialog
 public:
     explicit AceClassUtility_Attendance(QWidget *parent = nullptr);
     ~AceClassUtility_Attendance();
-    QString className;
 
 public slots:
     void opened(QString className);
-    void dialogClosed();
-    void attendanceTaken(QString filePath);
 
 private slots:
     void on_backButton_released();
@@ -45,8 +42,13 @@ private slots:
 
     void on_takeAttendanceButton_released();
 
+    void dialogClosed();
+
+    void attendanceTaken(QString filePath);
+
 private:
     Ui::AceClassUtility_Attendance *ui;
+    QString className;
 };
 
 #endif // ACECLASSUTILITY_ATTENDANCE_H

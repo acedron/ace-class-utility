@@ -31,11 +31,9 @@ class AceClassUtility_Class : public QDialog
 public:
     explicit AceClassUtility_Class(QWidget *parent = nullptr);
     ~AceClassUtility_Class();
-    QString className;
 
 public slots:
     void opened(QString className);
-    void dialogClosed();
 
 private slots:
     void on_backButton_released();
@@ -46,8 +44,11 @@ private slots:
 
     void on_deleteClassButton_released();
 
+    void dialogClosed();
+
 private:
     Ui::AceClassUtility_Class *ui;
+    QString className;
 };
 
 #endif // ACECLASSUTILITY_CLASS_H

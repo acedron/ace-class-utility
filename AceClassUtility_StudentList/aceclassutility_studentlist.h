@@ -31,7 +31,6 @@ class AceClassUtility_StudentList : public QDialog
 public:
     explicit AceClassUtility_StudentList(QWidget *parent = nullptr);
     ~AceClassUtility_StudentList();
-    QString className;
 
 public slots:
     void opened(QString className);
@@ -43,6 +42,7 @@ private slots:
 
 private:
     Ui::AceClassUtility_StudentList *ui;
+    QString className;
 };
 
 #endif // ACECLASSUTILITY_STUDENTLIST_H
