@@ -83,7 +83,7 @@ void AceClassUtility::stopLoadingAndRegenerate()
         button->setText(classes[i]);
         button->setObjectName("classButton_" + QString::number(i));
         button->setFlat(true);
-        button->setIcon(QIcon(QString("accessories-text-editor")));
+        button->setIcon(QIcon::fromTheme("accessories-text-editor"));
         QFont font = button->font();
         font.setBold(true);
         button->setFont(font);

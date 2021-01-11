@@ -22,6 +22,7 @@
 #include "../AceClassUtility_StudentList/aceclassutility_studentlist.h"
 #include "../AceClassUtility_TakeAttendance/aceclassutility_takeattendance.h"
 #include "../AceClassUtility_AttendanceReport/aceclassutility_attendancereport.h"
+#include "../AceClassUtility_AttendanceReports/aceclassutility_attendancereports.h"
 
 AceClassUtility_Attendance::AceClassUtility_Attendance(QWidget *parent) :
     QDialog(parent),
@@ -49,7 +50,7 @@ void AceClassUtility_Attendance::dialogClosed()
 
 void AceClassUtility_Attendance::attendanceTaken(QString filePath)
 {
-    AceClassUtility_AttendanceReport *attendanceReport = new AceClassUtility_AttendanceReport;
+    AceClassUtility_AttendanceReport *attendanceReport = new AceClassUtility_AttendanceReport();
     attendanceReport->show();
     QObject::connect(attendanceReport, SIGNAL(finished(int)),
                      this, SLOT(dialogClosed()));
@@ -80,5 +81,15 @@ void AceClassUtility_Attendance::on_takeAttendanceButton_released()
     QObject::connect(takeAttendance, SIGNAL(attendanceTaken(QString)),
                      this, SLOT(attendanceTaken(QString)));
     takeAttendance->opened(AceClassUtility_Attendance::className);
+    hide();
+}
+
+void AceClassUtility_Attendance::on_attendanceReportsButton_released()
+{
+    AceClassUtility_AttendanceReports *attendanceReports = new AceClassUtility_AttendanceReports();
+    attendanceReports->show();
+    QObject::connect(attendanceReports, SIGNAL(finished(int)),
+                     this, SLOT(dialogClosed()));
+    attendanceReports->opened(AceClassUtility_Attendance::className);
     hide();
 }

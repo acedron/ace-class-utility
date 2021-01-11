@@ -11,6 +11,7 @@ CONFIG += c++11
 SOURCES += \
     AceClassUtility_Attendance/aceclassutility_attendance.cpp \
     AceClassUtility_AttendanceReport/aceclassutility_attendancereport.cpp \
+    AceClassUtility_AttendanceReports/aceclassutility_attendancereports.cpp \
     AceClassUtility_Class/aceclassutility_class.cpp \
     AceClassUtility_CreateClass/aceclassutility_createclass.cpp \
     AceClassUtility_StudentList/aceclassutility_studentlist.cpp \
@@ -22,6 +23,7 @@ HEADERS += \
     AceClassUtility/aceclassutility.h \
     AceClassUtility_Attendance/aceclassutility_attendance.h \
     AceClassUtility_AttendanceReport/aceclassutility_attendancereport.h \
+    AceClassUtility_AttendanceReports/aceclassutility_attendancereports.h \
     AceClassUtility_Class/aceclassutility_class.h \
     AceClassUtility_CreateClass/aceclassutility_createclass.h \
     AceClassUtility_StudentList/aceclassutility_studentlist.h \
@@ -31,6 +33,7 @@ FORMS += \
     AceClassUtility/aceclassutility.ui \
     AceClassUtility_Attendance/aceclassutility_attendance.ui \
     AceClassUtility_AttendanceReport/aceclassutility_attendancereport.ui \
+    AceClassUtility_AttendanceReports/aceclassutility_attendancereports.ui \
     AceClassUtility_Class/aceclassutility_class.ui \
     AceClassUtility_CreateClass/aceclassutility_createclass.ui \
     AceClassUtility_StudentList/aceclassutility_studentlist.ui \

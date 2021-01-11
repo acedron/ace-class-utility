@@ -49,7 +49,7 @@ void AceClassUtility_AttendanceReport::opened(QString className, QString filePat
     QVBoxLayout *absentLayout = new QVBoxLayout();
     ui->absents->widget()->setLayout(absentLayout);
 
-    QFile f(filePath);
+    QFile f(AceClassUtility_AttendanceReport::filePath);
     if (f.open(QIODevice::ReadOnly | QIODevice::Text)) {
         QFileInfo fileInfo(f.fileName());
         QString fname(fileInfo.baseName());

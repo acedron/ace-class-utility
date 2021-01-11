@@ -15,42 +15,36 @@
 ** You should have received a copy of the GNU General Public License
 ** along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ****************************************************************************/
-#ifndef ACECLASSUTILITY_ATTENDANCE_H
-#define ACECLASSUTILITY_ATTENDANCE_H
+#ifndef ACECLASSUTILITY_ATTENDANCEREPORTS_H
+#define ACECLASSUTILITY_ATTENDANCEREPORTS_H
 
 #include <QDialog>
 
 namespace Ui {
-class AceClassUtility_Attendance;
+class AceClassUtility_AttendanceReports;
 }
 
-class AceClassUtility_Attendance : public QDialog
+class AceClassUtility_AttendanceReports : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit AceClassUtility_Attendance(QWidget *parent = nullptr);
-    ~AceClassUtility_Attendance();
+    explicit AceClassUtility_AttendanceReports(QWidget *parent = nullptr);
+    ~AceClassUtility_AttendanceReports();
 
 public slots:
     void opened(QString className);
 
 private slots:
-    void on_backButton_released();
-
-    void on_studentListButton_released();
-
-    void on_takeAttendanceButton_released();
+    void attendanceReportOpened();
 
     void dialogClosed();
 
-    void attendanceTaken(QString filePath);
-
-    void on_attendanceReportsButton_released();
+    void on_backButton_released();
 
 private:
-    Ui::AceClassUtility_Attendance *ui;
+    Ui::AceClassUtility_AttendanceReports *ui;
     QString className;
 };
 
-#endif // ACECLASSUTILITY_ATTENDANCE_H
+#endif // ACECLASSUTILITY_ATTENDANCEREPORTS_H
