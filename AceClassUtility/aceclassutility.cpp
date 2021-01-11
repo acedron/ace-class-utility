@@ -33,6 +33,10 @@ AceClassUtility::AceClassUtility(QWidget *parent)
 
     AceClassUtility::startLoading();
 
+    QVBoxLayout *layout = new QVBoxLayout();
+    layout->setAlignment(Qt::AlignTop);
+    ui->classes->widget()->setLayout(layout);
+
     if (!QDir("AceClassUtility").exists())
         QDir().mkdir("AceClassUtility");
 
@@ -87,7 +91,7 @@ void AceClassUtility::stopLoadingAndRegenerate()
         QFont font = button->font();
         font.setBold(true);
         button->setFont(font);
-        ui->classes->addWidget(button);
+        ui->classes->widget()->layout()->addWidget(button);
         button->show();
         QObject::connect(button, SIGNAL(released()),
                          this, SLOT(openClass()));
@@ -106,7 +110,7 @@ void AceClassUtility::stopLoadingCreatedNewClass(QString newClassName)
     QFont font = button->font();
     font.setBold(true);
     button->setFont(font);
-    ui->classes->addWidget(button);
+    ui->classes->widget()->layout()->addWidget(button);
     button->show();
     QObject::connect(button, SIGNAL(released()),
                      this, SLOT(openClass()));

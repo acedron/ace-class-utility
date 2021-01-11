@@ -50,7 +50,8 @@
         <string>Back</string>
        </property>
        <property name="icon">
-        <iconset theme="back"/>
+        <iconset theme="back">
+         <normaloff>.</normaloff>.</iconset>
        </property>
        <property name="flat">
         <bool>true</bool>
@@ -88,6 +89,9 @@
    </item>
    <item row="1" column="0">
     <widget class="QScrollArea" name="attendanceReports">
+     <property name="frameShape">
+      <enum>QFrame::HLine</enum>
+     </property>
      <property name="widgetResizable">
       <bool>true</bool>
      </property>
@@ -96,8 +100,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>583</width>
-        <height>267</height>
+        <width>581</width>
+        <height>265</height>
        </rect>
       </property>
      </widget>

@@ -38,6 +38,9 @@
   <layout class="QGridLayout" name="gridLayout">
    <item row="2" column="0">
     <widget class="QScrollArea" name="studentList">
+     <property name="frameShape">
+      <enum>QFrame::HLine</enum>
+     </property>
      <property name="widgetResizable">
       <bool>true</bool>
      </property>
@@ -46,8 +49,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>583</width>
-        <height>265</height>
+        <width>581</width>
+        <height>263</height>
        </rect>
       </property>
      </widget>

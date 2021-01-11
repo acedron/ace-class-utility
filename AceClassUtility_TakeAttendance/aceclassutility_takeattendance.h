@@ -40,11 +40,11 @@ public slots:
     void opened(QString className);
 
 private slots:
+    void studentStateChanged(int state);
+
     void on_cancelButton_released();
 
     void on_confirmButton_released();
-
-    void studentStateChanged(int state);
 
 private:
     Ui::AceClassUtility_TakeAttendance *ui;

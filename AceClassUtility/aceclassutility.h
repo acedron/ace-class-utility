@@ -33,8 +33,6 @@ public:
     ~AceClassUtility();
 
 private slots:
-    void on_newClassButton_released();
-
     void startLoading();
 
     void stopLoading();
@@ -48,6 +46,8 @@ private slots:
     void closedClass();
 
     void discardExit();
+
+    void on_newClassButton_released();
 
 private:
     Ui::AceClassUtility *ui;

@@ -47,8 +47,9 @@ void AceClassUtility_AttendanceReports::opened(QString className)
     ui->titleLabel->setText(AceClassUtility_AttendanceReports::className + " - Attendance Reports");
     setWindowTitle("Ace Class Utility - " + AceClassUtility_AttendanceReports::className + " - Attendance Reports");
 
-    QGridLayout *attendeeLayout = new QGridLayout();
-    ui->attendanceReports->widget()->setLayout(attendeeLayout);
+    QGridLayout *layout = new QGridLayout();
+    layout->setAlignment(Qt::AlignTop);
+    ui->attendanceReports->widget()->setLayout(layout);
 
     QDir d("AceClassUtility/" + AceClassUtility_AttendanceReports::className + "/attendance/");
     QStringList reports = d.entryList(QDir::Files | QDir::NoDotAndDotDot, QDir::Time);

@@ -46,6 +46,7 @@ void AceClassUtility_TakeAttendance::opened(QString className)
     QLocale locale = QLocale::system();
     ui->dateTimeLabel->setText(AceClassUtility_TakeAttendance::attendanceDateTime.toString(locale.dateTimeFormat(QLocale::ShortFormat)));
     QVBoxLayout *layout = new QVBoxLayout();
+    layout->setAlignment(Qt::AlignTop);
     ui->studentList->widget()->setLayout(layout);
 
     QFile f("AceClassUtility/" + AceClassUtility_TakeAttendance::className + "/studentList.json");

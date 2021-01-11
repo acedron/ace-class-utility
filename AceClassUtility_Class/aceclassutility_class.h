@@ -36,6 +36,8 @@ public slots:
     void opened(QString className);
 
 private slots:
+    void dialogClosed();
+
     void on_backButton_released();
 
     void on_attendanceButton_released();
@@ -43,8 +45,6 @@ private slots:
     void on_assignmentsButton_released();
 
     void on_deleteClassButton_released();
-
-    void dialogClosed();
 
 private:
     Ui::AceClassUtility_Class *ui;

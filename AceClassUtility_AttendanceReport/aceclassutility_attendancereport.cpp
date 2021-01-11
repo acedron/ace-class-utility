@@ -44,9 +44,11 @@ void AceClassUtility_AttendanceReport::opened(QString className, QString filePat
     setWindowTitle("Ace Class Utility - " + AceClassUtility_AttendanceReport::className + " - Attendance Report");
 
     QVBoxLayout *attendeeLayout = new QVBoxLayout();
+    attendeeLayout->setAlignment(Qt::AlignTop);
     ui->attendees->widget()->setLayout(attendeeLayout);
 
     QVBoxLayout *absentLayout = new QVBoxLayout();
+    absentLayout->setAlignment(Qt::AlignTop);
     ui->absents->widget()->setLayout(absentLayout);
 
     QFile f(AceClassUtility_AttendanceReport::filePath);
