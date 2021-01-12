@@ -15,43 +15,37 @@
 ** You should have received a copy of the GNU General Public License
 ** along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ****************************************************************************/
-#ifndef ACECLASSUTILITY_CLASS_H
-#define ACECLASSUTILITY_CLASS_H
+#ifndef ACECLASSUTILITY_CREATEASSIGNMENT_H
+#define ACECLASSUTILITY_CREATEASSIGNMENT_H
 
 #include <QDialog>
 
 namespace Ui {
-class AceClassUtility_Class;
+class AceClassUtility_CreateAssignment;
 }
 
-class AceClassUtility_Class : public QDialog
+class AceClassUtility_CreateAssignment : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit AceClassUtility_Class(QWidget *parent = nullptr);
-    ~AceClassUtility_Class();
+    explicit AceClassUtility_CreateAssignment(QWidget *parent = nullptr);
+    ~AceClassUtility_CreateAssignment();
 
 signals:
-    void backPressed();
+    void assignmentCreated(QString filePath);
 
 public slots:
     void opened(QString className);
 
 private slots:
-    void dialogClosed();
+    void on_cancelButton_released();
 
-    void on_backButton_released();
-
-    void on_attendanceButton_released();
-
-    void on_assignmentsButton_released();
-
-    void on_deleteClassButton_released();
+    void on_createButton_released();
 
 private:
-    Ui::AceClassUtility_Class *ui;
+    Ui::AceClassUtility_CreateAssignment *ui;
     QString className;
 };
 
-#endif // ACECLASSUTILITY_CLASS_H
+#endif // ACECLASSUTILITY_CREATEASSIGNMENT_H

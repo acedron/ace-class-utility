@@ -54,6 +54,7 @@ void AceClassUtility_CreateClass::on_confirmButton_released()
 
             QDir dd("AceClassUtility/" + className);
             dd.mkdir("attendance");
+            dd.mkdir("assignments");
 
             QFile f("AceClassUtility/" + className + "/class.xml");
             if (f.open(QIODevice::WriteOnly | QIODevice::Text)) {

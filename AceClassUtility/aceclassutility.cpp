@@ -125,7 +125,7 @@ void AceClassUtility::openClass()
 
     AceClassUtility_Class *classWindow = new AceClassUtility_Class();
     classWindow->show();
-    QObject::connect(classWindow, SIGNAL(rejected()),
+    QObject::connect(classWindow, SIGNAL(backPressed()),
                      this, SLOT(closedClass()));
     classWindow->opened(className);
     hide();

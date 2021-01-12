@@ -20,6 +20,7 @@
 #include "ui_aceclassutility_class.h"
 
 #include "../AceClassUtility_Attendance/aceclassutility_attendance.h"
+#include "../AceClassUtility_Assignments/aceclassutility_assignments.h"
 
 #include <QDir>
 
@@ -49,23 +50,30 @@ void AceClassUtility_Class::dialogClosed()
 
 void AceClassUtility_Class::on_backButton_released()
 {
+    emit backPressed();
     QDialog::reject();
 }
 
 void AceClassUtility_Class::on_attendanceButton_released()
 {
-    AceClassUtility_Attendance *attendanceDialog = new AceClassUtility_Attendance;
-    attendanceDialog->show();
+    AceClassUtility_Attendance *attendance = new AceClassUtility_Attendance();
+    attendance->show();
 
-    QObject::connect(attendanceDialog, SIGNAL(rejected()),
+    QObject::connect(attendance, SIGNAL(finished(int)),
                      this, SLOT(dialogClosed()));
-    attendanceDialog->opened(AceClassUtility_Class::className);
+    attendance->opened(AceClassUtility_Class::className);
     hide();
 }
 
 void AceClassUtility_Class::on_assignmentsButton_released()
 {
+    AceClassUtility_Assignments *assignments = new AceClassUtility_Assignments();
+    assignments->show();
 
+    QObject::connect(assignments, SIGNAL(finished(int)),
+                     this, SLOT(dialogClosed()));
+    assignments->opened(AceClassUtility_Class::className);
+    hide();
 }
 
 void AceClassUtility_Class::on_deleteClassButton_released()
