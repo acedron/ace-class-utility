@@ -15,23 +15,23 @@
 ** You should have received a copy of the GNU General Public License
 ** along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ****************************************************************************/
-#ifndef ACECLASSUTILITY_TAKEATTENDANCE_H
-#define ACECLASSUTILITY_TAKEATTENDANCE_H
+#ifndef ACECLASSUTILITY_NEWATTENDANCE_H
+#define ACECLASSUTILITY_NEWATTENDANCE_H
 
 #include <QDialog>
 #include <QJsonArray>
 
 namespace Ui {
-class AceClassUtility_TakeAttendance;
+class AceClassUtility_NewAttendance;
 }
 
-class AceClassUtility_TakeAttendance : public QDialog
+class AceClassUtility_NewAttendance : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit AceClassUtility_TakeAttendance(QWidget *parent = nullptr);
-    ~AceClassUtility_TakeAttendance();
+    explicit AceClassUtility_NewAttendance(QWidget *parent = nullptr);
+    ~AceClassUtility_NewAttendance();
 
 signals:
     void attendanceTaken(QString filePath);
@@ -47,11 +47,11 @@ private slots:
     void on_confirmButton_released();
 
 private:
-    Ui::AceClassUtility_TakeAttendance *ui;
+    Ui::AceClassUtility_NewAttendance *ui;
     QString className;
     QDateTime attendanceDateTime;
     QJsonArray students;
     QMap<QString, int> attendanceMap;
 };
 
-#endif // ACECLASSUTILITY_TAKEATTENDANCE_H
+#endif // ACECLASSUTILITY_NEWATTENDANCE_H

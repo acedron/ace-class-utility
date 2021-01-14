@@ -19,7 +19,7 @@
 #include "aceclassutility_attendances.h"
 #include "ui_aceclassutility_attendances.h"
 
-#include "../AceClassUtility_TakeAttendance/aceclassutility_takeattendance.h"
+#include "../AceClassUtility_NewAttendance/aceclassutility_newattendance.h"
 #include "../AceClassUtility_Attendance/aceclassutility_attendance.h"
 
 #include <QDir>
@@ -49,7 +49,7 @@ void AceClassUtility_Attendances::opened(QString className)
     layout->setAlignment(Qt::AlignTop);
     ui->attendances->widget()->setLayout(layout);
 
-    QDir d("AceClassUtility/" + AceClassUtility_Attendances::className + "/attendance/");
+    QDir d("AceClassUtility/" + AceClassUtility_Attendances::className + "/attendances/");
     QStringList attendances = d.entryList(QDir::Files | QDir::NoDotAndDotDot, QDir::Time);
     for (int i = 0; i < attendances.size(); i++) {
         QFile f(d.filePath(attendances[i]));
@@ -115,7 +115,7 @@ void AceClassUtility_Attendances::on_backButton_released()
 
 void AceClassUtility_Attendances::on_takeAttendanceButton_released()
 {
-    AceClassUtility_TakeAttendance *takeAttendance = new AceClassUtility_TakeAttendance();
+    AceClassUtility_NewAttendance *takeAttendance = new AceClassUtility_NewAttendance();
     takeAttendance->show();
     QObject::connect(takeAttendance, SIGNAL(rejected()),
                      this, SLOT(dialogClosed()));

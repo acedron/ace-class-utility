@@ -16,86 +16,86 @@
 ** along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ****************************************************************************/
 
-#include "aceclassutility_takeattendance.h"
-#include "ui_aceclassutility_takeattendance.h"
+#include "aceclassutility_newattendance.h"
+#include "ui_aceclassutility_newattendance.h"
 
 #include <QCheckBox>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QFile>
 
-AceClassUtility_TakeAttendance::AceClassUtility_TakeAttendance(QWidget *parent) :
+AceClassUtility_NewAttendance::AceClassUtility_NewAttendance(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::AceClassUtility_TakeAttendance)
+    ui(new Ui::AceClassUtility_NewAttendance)
 {
     ui->setupUi(this);
 }
 
-AceClassUtility_TakeAttendance::~AceClassUtility_TakeAttendance()
+AceClassUtility_NewAttendance::~AceClassUtility_NewAttendance()
 {
     delete ui;
 }
 
-void AceClassUtility_TakeAttendance::opened(QString className)
+void AceClassUtility_NewAttendance::opened(QString className)
 {
-    AceClassUtility_TakeAttendance::className = className;
-    AceClassUtility_TakeAttendance::attendanceDateTime = QDateTime::currentDateTime();
-    ui->titleLabel->setText(AceClassUtility_TakeAttendance::className + " - Take Attendance ");
-    setWindowTitle("Ace Class Utility - " + AceClassUtility_TakeAttendance::className + " - Take Attendance");
+    AceClassUtility_NewAttendance::className = className;
+    AceClassUtility_NewAttendance::attendanceDateTime = QDateTime::currentDateTime();
+    ui->titleLabel->setText(AceClassUtility_NewAttendance::className + " - New Attendance ");
+    setWindowTitle("Ace Class Utility - " + AceClassUtility_NewAttendance::className + " - New Attendance");
 
     QLocale locale = QLocale::system();
-    ui->dateTimeLabel->setText(AceClassUtility_TakeAttendance::attendanceDateTime.toString(locale.dateTimeFormat(QLocale::ShortFormat)));
+    ui->dateTimeLabel->setText(AceClassUtility_NewAttendance::attendanceDateTime.toString(locale.dateTimeFormat(QLocale::ShortFormat)));
     QVBoxLayout *layout = new QVBoxLayout();
     layout->setAlignment(Qt::AlignTop);
     ui->studentList->widget()->setLayout(layout);
 
-    QFile f("AceClassUtility/" + AceClassUtility_TakeAttendance::className + "/studentList.json");
+    QFile f("AceClassUtility/" + AceClassUtility_NewAttendance::className + "/studentList.json");
     if (f.open(QIODevice::ReadOnly | QIODevice::Text)) {
         QString jsonString = f.readAll();
         QJsonDocument doc = QJsonDocument::fromJson(jsonString.toUtf8());
-        AceClassUtility_TakeAttendance::students = doc.array();
-        for (int i = 0; i < AceClassUtility_TakeAttendance::students.size(); i++) {
-            AceClassUtility_TakeAttendance::attendanceMap[AceClassUtility_TakeAttendance::students[i].toString()] = Qt::Unchecked;
+        AceClassUtility_NewAttendance::students = doc.array();
+        for (int i = 0; i < AceClassUtility_NewAttendance::students.size(); i++) {
+            AceClassUtility_NewAttendance::attendanceMap[AceClassUtility_NewAttendance::students[i].toString()] = Qt::Unchecked;
             QCheckBox *checkBox = new QCheckBox();
-            checkBox->setText(AceClassUtility_TakeAttendance::students[i].toString());
+            checkBox->setText(AceClassUtility_NewAttendance::students[i].toString());
             QObject::connect(checkBox, SIGNAL(stateChanged(int)),
                              this, SLOT(studentStateChanged(int)));
             ui->studentList->widget()->layout()->addWidget(checkBox);
         }
         f.close();
     } else
-        AceClassUtility_TakeAttendance::students = QJsonArray();
+        AceClassUtility_NewAttendance::students = QJsonArray();
 }
 
-void AceClassUtility_TakeAttendance::studentStateChanged(int state)
+void AceClassUtility_NewAttendance::studentStateChanged(int state)
 {
     QCheckBox *checkBoxSender = qobject_cast<QCheckBox *>(sender());
     QString studentName = checkBoxSender->text();
 
-    AceClassUtility_TakeAttendance::attendanceMap[studentName] = state;
+    AceClassUtility_NewAttendance::attendanceMap[studentName] = state;
 }
 
-void AceClassUtility_TakeAttendance::on_cancelButton_released()
+void AceClassUtility_NewAttendance::on_cancelButton_released()
 {
     QDialog::reject();
 }
 
-void AceClassUtility_TakeAttendance::on_confirmButton_released()
+void AceClassUtility_NewAttendance::on_confirmButton_released()
 {
-    if (AceClassUtility_TakeAttendance::students.isEmpty()) {
+    if (AceClassUtility_NewAttendance::students.isEmpty()) {
         ui->statusLabel->setText("Please create a student list first!");
     } else {
-        QFile f("AceClassUtility/" + AceClassUtility_TakeAttendance::className + "/attendance/" +
-                AceClassUtility_TakeAttendance::attendanceDateTime.toString(Qt::ISODate) + ".json");
+        QFile f("AceClassUtility/" + AceClassUtility_NewAttendance::className + "/attendance/" +
+                AceClassUtility_NewAttendance::attendanceDateTime.toString(Qt::ISODate) + ".json");
         if (f.open(QIODevice::WriteOnly | QIODevice::Text)) {
             QJsonObject attendance;
 
             QJsonObject students;
             int attendeeCount = 0;
             int absentCount = 0;
-            QList<QString> keys = AceClassUtility_TakeAttendance::attendanceMap.keys();
-            for (int i = 0; i < AceClassUtility_TakeAttendance::attendanceMap.size(); i++) {
-                int val = AceClassUtility_TakeAttendance::attendanceMap[keys[i]];
+            QList<QString> keys = AceClassUtility_NewAttendance::attendanceMap.keys();
+            for (int i = 0; i < AceClassUtility_NewAttendance::attendanceMap.size(); i++) {
+                int val = AceClassUtility_NewAttendance::attendanceMap[keys[i]];
                 if (val >= 1) {
                     attendeeCount += 1;
                     students.insert(keys[i], QJsonValue(true));
@@ -113,8 +113,8 @@ void AceClassUtility_TakeAttendance::on_confirmButton_released()
             QTextStream out(&f);
             out << doc.toJson();
             f.close();
-            emit attendanceTaken("AceClassUtility/" + AceClassUtility_TakeAttendance::className + "/attendance/" +
-                                 AceClassUtility_TakeAttendance::attendanceDateTime.toString(Qt::ISODate) + ".json");
+            emit attendanceTaken("AceClassUtility/" + AceClassUtility_NewAttendance::className + "/attendances/" +
+                                 AceClassUtility_NewAttendance::attendanceDateTime.toString(Qt::ISODate) + ".json");
             QDialog::accept();
         } else
             ui->statusLabel->setText("An error occured while saving attendance!");

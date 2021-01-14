@@ -16,31 +16,31 @@
 ** along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ****************************************************************************/
 
-#include "aceclassutility_createclass.h"
-#include "ui_aceclassutility_createclass.h"
+#include "aceclassutility_newclass.h"
+#include "ui_aceclassutility_newclass.h"
 
 #include <QDir>
 #include <QFile>
 #include <QXmlStreamWriter>
 
-AceClassUtility_CreateClass::AceClassUtility_CreateClass(QWidget *parent) :
+AceClassUtility_NewClass::AceClassUtility_NewClass(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::AceClassUtility_CreateClass)
+    ui(new Ui::AceClassUtility_NewClass)
 {
     ui->setupUi(this);
 }
 
-AceClassUtility_CreateClass::~AceClassUtility_CreateClass()
+AceClassUtility_NewClass::~AceClassUtility_NewClass()
 {
     delete ui;
 }
 
-void AceClassUtility_CreateClass::on_cancelButton_released()
+void AceClassUtility_NewClass::on_cancelButton_released()
 {
     QDialog::reject();
 }
 
-void AceClassUtility_CreateClass::on_confirmButton_released()
+void AceClassUtility_NewClass::on_confirmButton_released()
 {
     QString className = ui->classNameEdit->text();
     if (className.isEmpty())
@@ -53,7 +53,7 @@ void AceClassUtility_CreateClass::on_confirmButton_released()
             d.mkdir(className);
 
             QDir dd("AceClassUtility/" + className);
-            dd.mkdir("attendance");
+            dd.mkdir("attendances");
             dd.mkdir("assignments");
 
             QFile f("AceClassUtility/" + className + "/class.xml");

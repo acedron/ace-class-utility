@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>AceClassUtility_CreateClass</class>
- <widget class="QDialog" name="AceClassUtility_CreateClass">
+ <class>AceClassUtility_NewClass</class>
+ <widget class="QDialog" name="AceClassUtility_NewClass">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Ace Class Utility - Create Class</string>
+   <string>Ace Class Utility - New Class</string>
   </property>
   <property name="windowIcon">
    <iconset resource="../main.qrc">

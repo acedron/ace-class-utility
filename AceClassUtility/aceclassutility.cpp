@@ -19,7 +19,7 @@
 #include "aceclassutility.h"
 #include "ui_aceclassutility.h"
 
-#include "../AceClassUtility_CreateClass/aceclassutility_createclass.h"
+#include "../AceClassUtility_NewClass/aceclassutility_newclass.h"
 #include "../AceClassUtility_Class/aceclassutility_class.h"
 
 #include <QFile>
@@ -42,12 +42,12 @@ AceClassUtility::AceClassUtility(QWidget *parent)
 
     QDir d("AceClassUtility");
     if (d.isEmpty()) {
-        AceClassUtility_CreateClass *createClassDialog = new AceClassUtility_CreateClass;
-        createClassDialog->show();
+        AceClassUtility_NewClass *newClass = new AceClassUtility_NewClass();
+        newClass->show();
 
-        QObject::connect(createClassDialog, SIGNAL(rejected()),
+        QObject::connect(newClass, SIGNAL(rejected()),
                          this, SLOT(discardExit()));
-        QObject::connect(createClassDialog, SIGNAL(accepted()),
+        QObject::connect(newClass, SIGNAL(accepted()),
                          this, SLOT(stopLoadingAndRegenerate()));
     } else
         AceClassUtility::stopLoadingAndRegenerate();
@@ -148,12 +148,12 @@ void AceClassUtility::discardExit()
 
 void AceClassUtility::on_newClassButton_released()
 {
-    AceClassUtility_CreateClass *createClassDialog = new AceClassUtility_CreateClass;
-    createClassDialog->show();
+    AceClassUtility_NewClass *newClass = new AceClassUtility_NewClass();
+    newClass->show();
     AceClassUtility::startLoading();
 
-    QObject::connect(createClassDialog, SIGNAL(rejected()),
+    QObject::connect(newClass, SIGNAL(rejected()),
                      this, SLOT(stopLoading()));
-    QObject::connect(createClassDialog, SIGNAL(createdClass(QString)),
+    QObject::connect(newClass, SIGNAL(createdClass(QString)),
                      this, SLOT(stopLoadingCreatedNewClass(QString)));
 }

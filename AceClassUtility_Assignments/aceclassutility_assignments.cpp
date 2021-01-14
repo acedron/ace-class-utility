@@ -19,7 +19,7 @@
 #include "aceclassutility_assignments.h"
 #include "ui_aceclassutility_assignments.h"
 
-#include "../AceClassUtility_CreateAssignment/aceclassutility_createassignment.h"
+#include "../AceClassUtility_NewAssignment/aceclassutility_newassignment.h"
 #include "../AceClassUtility_Assignment/aceclassutility_assignment.h"
 
 #include <QDir>
@@ -145,12 +145,12 @@ void AceClassUtility_Assignments::on_backButton_released()
 
 void AceClassUtility_Assignments::on_newAssignmentButton_released()
 {
-    AceClassUtility_CreateAssignment *createAssignment = new AceClassUtility_CreateAssignment();
-    createAssignment->opened(AceClassUtility_Assignments::className);
-    QObject::connect(createAssignment, SIGNAL(rejected()),
+    AceClassUtility_NewAssignment *newAssignment = new AceClassUtility_NewAssignment();
+    newAssignment->opened(AceClassUtility_Assignments::className);
+    QObject::connect(newAssignment, SIGNAL(rejected()),
                      this, SLOT(dialogClosed()));
-    QObject::connect(createAssignment, SIGNAL(assignmentCreated(QString)),
+    QObject::connect(newAssignment, SIGNAL(assignmentCreated(QString)),
                      this, SLOT(assignmentOpened(QString)));
-    createAssignment->show();
+    newAssignment->show();
     hide();
 }

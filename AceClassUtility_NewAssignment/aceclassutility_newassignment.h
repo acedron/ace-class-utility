@@ -15,22 +15,22 @@
 ** You should have received a copy of the GNU General Public License
 ** along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ****************************************************************************/
-#ifndef ACECLASSUTILITY_CREATEASSIGNMENT_H
-#define ACECLASSUTILITY_CREATEASSIGNMENT_H
+#ifndef ACECLASSUTILITY_NEWASSIGNMENT_H
+#define ACECLASSUTILITY_NEWASSIGNMENT_H
 
 #include <QDialog>
 
 namespace Ui {
-class AceClassUtility_CreateAssignment;
+class AceClassUtility_NewAssignment;
 }
 
-class AceClassUtility_CreateAssignment : public QDialog
+class AceClassUtility_NewAssignment : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit AceClassUtility_CreateAssignment(QWidget *parent = nullptr);
-    ~AceClassUtility_CreateAssignment();
+    explicit AceClassUtility_NewAssignment(QWidget *parent = nullptr);
+    ~AceClassUtility_NewAssignment();
 
 signals:
     void assignmentCreated(QString filePath);
@@ -44,8 +44,8 @@ private slots:
     void on_createButton_released();
 
 private:
-    Ui::AceClassUtility_CreateAssignment *ui;
+    Ui::AceClassUtility_NewAssignment *ui;
     QString className;
 };
 
-#endif // ACECLASSUTILITY_CREATEASSIGNMENT_H
+#endif // ACECLASSUTILITY_NEWASSIGNMENT_H

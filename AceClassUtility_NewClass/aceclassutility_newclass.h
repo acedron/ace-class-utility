@@ -15,22 +15,22 @@
 ** You should have received a copy of the GNU General Public License
 ** along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ****************************************************************************/
-#ifndef ACECLASSUTILITY_CREATECLASS_H
-#define ACECLASSUTILITY_CREATECLASS_H
+#ifndef ACECLASSUTILITY_NEWCLASS_H
+#define ACECLASSUTILITY_NEWCLASS_H
 
 #include <QDialog>
 
 namespace Ui {
-class AceClassUtility_CreateClass;
+class AceClassUtility_NewClass;
 }
 
-class AceClassUtility_CreateClass : public QDialog
+class AceClassUtility_NewClass : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit AceClassUtility_CreateClass(QWidget *parent = nullptr);
-    ~AceClassUtility_CreateClass();
+    explicit AceClassUtility_NewClass(QWidget *parent = nullptr);
+    ~AceClassUtility_NewClass();
 
 signals:
     void createdClass(QString newClassName);
@@ -41,7 +41,7 @@ private slots:
     void on_confirmButton_released();
 
 private:
-    Ui::AceClassUtility_CreateClass *ui;
+    Ui::AceClassUtility_NewClass *ui;
 };
 
-#endif // ACECLASSUTILITY_CREATECLASS_H
+#endif // ACECLASSUTILITY_NEWCLASS_H
