@@ -16,32 +16,32 @@
 ** along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ****************************************************************************/
 
-#include "aceclassutility_attendancereport.h"
-#include "ui_aceclassutility_attendancereport.h"
+#include "aceclassutility_attendance.h"
+#include "ui_aceclassutility_attendance.h"
 
 #include <QFile>
 #include <QFileInfo>
 #include <QJsonDocument>
 #include <QJsonObject>
 
-AceClassUtility_AttendanceReport::AceClassUtility_AttendanceReport(QWidget *parent) :
+AceClassUtility_Attendance::AceClassUtility_Attendance(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::AceClassUtility_AttendanceReport)
+    ui(new Ui::AceClassUtility_Attendance)
 {
     ui->setupUi(this);
 }
 
-AceClassUtility_AttendanceReport::~AceClassUtility_AttendanceReport()
+AceClassUtility_Attendance::~AceClassUtility_Attendance()
 {
     delete ui;
 }
 
-void AceClassUtility_AttendanceReport::opened(QString className, QString filePath)
+void AceClassUtility_Attendance::opened(QString className, QString filePath)
 {
-    AceClassUtility_AttendanceReport::className = className;
-    AceClassUtility_AttendanceReport::filePath = filePath;
-    ui->titleLabel->setText(AceClassUtility_AttendanceReport::className + " - Attendance Report");
-    setWindowTitle("Ace Class Utility - " + AceClassUtility_AttendanceReport::className + " - Attendance Report");
+    AceClassUtility_Attendance::className = className;
+    AceClassUtility_Attendance::filePath = filePath;
+    ui->titleLabel->setText(AceClassUtility_Attendance::className + " - Attendance");
+    setWindowTitle("Ace Class Utility - " + AceClassUtility_Attendance::className + " - Attendance");
 
     QVBoxLayout *attendeeLayout = new QVBoxLayout();
     attendeeLayout->setAlignment(Qt::AlignTop);
@@ -51,7 +51,7 @@ void AceClassUtility_AttendanceReport::opened(QString className, QString filePat
     absentLayout->setAlignment(Qt::AlignTop);
     ui->absents->widget()->setLayout(absentLayout);
 
-    QFile f(AceClassUtility_AttendanceReport::filePath);
+    QFile f(AceClassUtility_Attendance::filePath);
     if (f.open(QIODevice::ReadOnly | QIODevice::Text)) {
         QFileInfo fileInfo(f.fileName());
         QString fname(fileInfo.baseName());
@@ -90,7 +90,7 @@ void AceClassUtility_AttendanceReport::opened(QString className, QString filePat
     }
 }
 
-void AceClassUtility_AttendanceReport::on_backButton_released()
+void AceClassUtility_Attendance::on_backButton_released()
 {
     QDialog::reject();
 }

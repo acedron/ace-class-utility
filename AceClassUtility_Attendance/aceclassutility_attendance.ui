@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>AceClassUtility_AttendanceReport</class>
- <widget class="QDialog" name="AceClassUtility_AttendanceReport">
+ <class>AceClassUtility_Attendance</class>
+ <widget class="QDialog" name="AceClassUtility_Attendance">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -29,7 +29,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>&lt;className&gt; - Attendance Report</string>
+   <string>&lt;className&gt; - Attendance</string>
   </property>
   <property name="windowIcon">
    <iconset resource="../main.qrc">
@@ -150,7 +150,7 @@
         </font>
        </property>
        <property name="text">
-        <string>&lt;className&gt; - Attendance Report</string>
+        <string>&lt;className&gt; - Attendance</string>
        </property>
       </widget>
      </item>

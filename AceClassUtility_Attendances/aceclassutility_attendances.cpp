@@ -20,7 +20,7 @@
 #include "ui_aceclassutility_attendances.h"
 
 #include "../AceClassUtility_TakeAttendance/aceclassutility_takeattendance.h"
-#include "../AceClassUtility_AttendanceReport/aceclassutility_attendancereport.h"
+#include "../AceClassUtility_Attendance/aceclassutility_attendance.h"
 
 #include <QDir>
 #include <QFile>
@@ -88,11 +88,11 @@ void AceClassUtility_Attendances::dialogClosed()
 
 void AceClassUtility_Attendances::attendanceTaken(QString filePath)
 {
-    AceClassUtility_AttendanceReport *attendanceReport = new AceClassUtility_AttendanceReport();
-    attendanceReport->show();
-    QObject::connect(attendanceReport, SIGNAL(finished(int)),
+    AceClassUtility_Attendance *attendance = new AceClassUtility_Attendance();
+    attendance->show();
+    QObject::connect(attendance, SIGNAL(finished(int)),
                      this, SLOT(dialogClosed()));
-    attendanceReport->opened(AceClassUtility_Attendances::className, filePath);
+    attendance->opened(AceClassUtility_Attendances::className, filePath);
 }
 
 void AceClassUtility_Attendances::attendanceOpened()
@@ -100,11 +100,11 @@ void AceClassUtility_Attendances::attendanceOpened()
     QPushButton *buttonSender = qobject_cast<QPushButton *>(sender());
     QString filePath = buttonSender->objectName();
 
-    AceClassUtility_AttendanceReport *attendanceReport = new AceClassUtility_AttendanceReport();
-    attendanceReport->show();
-    QObject::connect(attendanceReport, SIGNAL(finished(int)),
+    AceClassUtility_Attendance *attendance = new AceClassUtility_Attendance();
+    attendance->show();
+    QObject::connect(attendance, SIGNAL(finished(int)),
                      this, SLOT(dialogClosed()));
-    attendanceReport->opened(AceClassUtility_Attendances::className, filePath);
+    attendance->opened(AceClassUtility_Attendances::className, filePath);
     hide();
 }
 
