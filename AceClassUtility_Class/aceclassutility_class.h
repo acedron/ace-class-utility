@@ -49,6 +49,8 @@ private slots:
 
     void on_deleteClassButton_released();
 
+    void on_studentListButton_released();
+
 private:
     Ui::AceClassUtility_Class *ui;
     QString className;

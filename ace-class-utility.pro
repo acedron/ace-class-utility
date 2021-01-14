@@ -11,7 +11,7 @@ CONFIG += c++11 static
 SOURCES += \
     AceClassUtility_Assignment/aceclassutility_assignment.cpp \
     AceClassUtility_Assignments/aceclassutility_assignments.cpp \
-    AceClassUtility_Attendance/aceclassutility_attendance.cpp \
+    AceClassUtility_Attendances/aceclassutility_attendances.cpp \
     AceClassUtility_AttendanceReport/aceclassutility_attendancereport.cpp \
     AceClassUtility_AttendanceReports/aceclassutility_attendancereports.cpp \
     AceClassUtility_Class/aceclassutility_class.cpp \
@@ -26,7 +26,7 @@ HEADERS += \
     AceClassUtility/aceclassutility.h \
     AceClassUtility_Assignment/aceclassutility_assignment.h \
     AceClassUtility_Assignments/aceclassutility_assignments.h \
-    AceClassUtility_Attendance/aceclassutility_attendance.h \
+    AceClassUtility_Attendances/aceclassutility_attendances.h \
     AceClassUtility_AttendanceReport/aceclassutility_attendancereport.h \
     AceClassUtility_AttendanceReports/aceclassutility_attendancereports.h \
     AceClassUtility_Class/aceclassutility_class.h \
@@ -39,7 +39,7 @@ FORMS += \
     AceClassUtility/aceclassutility.ui \
     AceClassUtility_Assignment/aceclassutility_assignment.ui \
     AceClassUtility_Assignments/aceclassutility_assignments.ui \
-    AceClassUtility_Attendance/aceclassutility_attendance.ui \
+    AceClassUtility_Attendances/aceclassutility_attendances.ui \
     AceClassUtility_AttendanceReport/aceclassutility_attendancereport.ui \
     AceClassUtility_AttendanceReports/aceclassutility_attendancereports.ui \
     AceClassUtility_Class/aceclassutility_class.ui \

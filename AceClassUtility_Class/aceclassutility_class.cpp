@@ -19,8 +19,9 @@
 #include "aceclassutility_class.h"
 #include "ui_aceclassutility_class.h"
 
-#include "../AceClassUtility_Attendance/aceclassutility_attendance.h"
+#include "../AceClassUtility_Attendances/aceclassutility_attendances.h"
 #include "../AceClassUtility_Assignments/aceclassutility_assignments.h"
+#include "../AceClassUtility_StudentList/aceclassutility_studentlist.h"
 
 #include <QDir>
 
@@ -56,12 +57,12 @@ void AceClassUtility_Class::on_backButton_released()
 
 void AceClassUtility_Class::on_attendanceButton_released()
 {
-    AceClassUtility_Attendance *attendance = new AceClassUtility_Attendance();
-    attendance->show();
+    AceClassUtility_Attendances *attendances = new AceClassUtility_Attendances();
+    attendances->show();
 
-    QObject::connect(attendance, SIGNAL(finished(int)),
+    QObject::connect(attendances, SIGNAL(finished(int)),
                      this, SLOT(dialogClosed()));
-    attendance->opened(AceClassUtility_Class::className);
+    attendances->opened(AceClassUtility_Class::className);
     hide();
 }
 
@@ -83,4 +84,15 @@ void AceClassUtility_Class::on_deleteClassButton_released()
         QApplication::exit(0);
     else
         QApplication::exit(1);
+}
+
+void AceClassUtility_Class::on_studentListButton_released()
+{
+    AceClassUtility_StudentList *studentList = new AceClassUtility_StudentList();
+    studentList->show();
+
+    QObject::connect(studentList, SIGNAL(finished(int)),
+                     this, SLOT(dialogClosed()));
+    studentList->opened(AceClassUtility_Class::className);
+    hide();
 }
