@@ -115,14 +115,14 @@ void AceClassUtility_Attendances::on_backButton_released()
     QDialog::reject();
 }
 
-void AceClassUtility_Attendances::on_takeAttendanceButton_released()
+void AceClassUtility_Attendances::on_newAttendanceButton_released()
 {
-    AceClassUtility_NewAttendance *takeAttendance = new AceClassUtility_NewAttendance();
-    takeAttendance->show();
-    QObject::connect(takeAttendance, SIGNAL(rejected()),
+    AceClassUtility_NewAttendance *newAttendance = new AceClassUtility_NewAttendance();
+    newAttendance->show();
+    QObject::connect(newAttendance, SIGNAL(rejected()),
                      this, SLOT(dialog_closed()));
-    QObject::connect(takeAttendance, SIGNAL(attendance_created(QString)),
+    QObject::connect(newAttendance, SIGNAL(attendanceCreated(QString)),
                      this, SLOT(attendance_created(QString)));
-    takeAttendance->opened(AceClassUtility_Attendances::className);
+    newAttendance->opened(AceClassUtility_Attendances::className);
     hide();
 }

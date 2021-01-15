@@ -87,7 +87,7 @@
        </widget>
       </item>
       <item row="0" column="2">
-       <widget class="QPushButton" name="takeAttendanceButton">
+       <widget class="QPushButton" name="newAttendanceButton">
         <property name="font">
          <font>
           <weight>75</weight>

@@ -44,7 +44,7 @@ private slots:
 
     void on_backButton_released();
 
-    void on_takeAttendanceButton_released();
+    void on_newAttendanceButton_released();
 
 private:
     Ui::AceClassUtility_Attendances *ui;

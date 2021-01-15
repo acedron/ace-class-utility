@@ -61,7 +61,7 @@ void AceClassUtility_NewAttendance::opened(QString className)
             QCheckBox *checkBox = new QCheckBox();
             checkBox->setText(AceClassUtility_NewAttendance::students[i].toString());
             QObject::connect(checkBox, SIGNAL(stateChanged(int)),
-                             this, SLOT(student_state_changed(int)));
+                             this, SLOT(student_stateChanged(int)));
             ui->studentList->widget()->layout()->addWidget(checkBox);
         }
         f.close();
@@ -69,7 +69,7 @@ void AceClassUtility_NewAttendance::opened(QString className)
         AceClassUtility_NewAttendance::students = QJsonArray();
 }
 
-void AceClassUtility_NewAttendance::student_state_changed(int state)
+void AceClassUtility_NewAttendance::student_stateChanged(int state)
 {
     QCheckBox *checkBoxSender = qobject_cast<QCheckBox *>(sender());
     QString studentName = checkBoxSender->text();
@@ -116,7 +116,7 @@ void AceClassUtility_NewAttendance::on_confirmButton_released()
             QTextStream out(&f);
             out << doc.toJson();
             f.close();
-            emit attendanceTaken(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/" +
+            emit attendanceCreated(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/" +
                                  AceClassUtility_NewAttendance::className + "/attendances/" +
                                  AceClassUtility_NewAttendance::attendanceDateTime.toString(Qt::ISODate) + ".json");
             QDialog::accept();

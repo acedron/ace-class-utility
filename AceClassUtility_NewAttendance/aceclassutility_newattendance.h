@@ -34,13 +34,13 @@ public:
     ~AceClassUtility_NewAttendance();
 
 signals:
-    void attendanceTaken(QString filePath);
+    void attendanceCreated(QString filePath);
 
 public slots:
     void opened(QString className);
 
 private slots:
-    void student_state_changed(int state);
+    void student_stateChanged(int state);
 
     void on_cancelButton_released();
 
