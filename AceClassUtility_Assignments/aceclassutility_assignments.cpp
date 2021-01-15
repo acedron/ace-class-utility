@@ -19,16 +19,16 @@
 #include "aceclassutility_assignments.h"
 #include "ui_aceclassutility_assignments.h"
 
-#include "../AceClassUtility_NewAssignment/aceclassutility_newassignment.h"
 #include "../AceClassUtility_Assignment/aceclassutility_assignment.h"
+#include "../AceClassUtility_NewAssignment/aceclassutility_newassignment.h"
 
-#include <QStandardPaths>
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
-#include <QDateTime>
+#include <QStandardPaths>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QDateTime>
 
 AceClassUtility_Assignments::AceClassUtility_Assignments(QWidget *parent) :
     QDialog(parent),
@@ -78,19 +78,19 @@ void AceClassUtility_Assignments::opened(QString className)
             button->setFont(font);
             ui->assignments->widget()->layout()->addWidget(button);
             QObject::connect(button, SIGNAL(released()),
-                             this, SLOT(assignmentOpened()));
+                             this, SLOT(assignment_opened()));
             button->show();
             f.close();
         }
     }
 }
 
-void AceClassUtility_Assignments::dialogClosed()
+void AceClassUtility_Assignments::dialog_closed()
 {
     show();
 }
 
-void AceClassUtility_Assignments::assignmentOpened(QString filePath)
+void AceClassUtility_Assignments::assignment_opened(QString filePath)
 {
     if (filePath.isEmpty()) {
         QPushButton *buttonSender = qobject_cast<QPushButton *>(sender());
@@ -118,7 +118,7 @@ void AceClassUtility_Assignments::assignmentOpened(QString filePath)
             button->setFont(font);
             ui->assignments->widget()->layout()->addWidget(button);
             QObject::connect(button, SIGNAL(released()),
-                             this, SLOT(assignmentOpened()));
+                             this, SLOT(assignment_opened()));
             button->show();
             f.close();
         }
@@ -127,14 +127,14 @@ void AceClassUtility_Assignments::assignmentOpened(QString filePath)
     AceClassUtility_Assignment *assignment = new AceClassUtility_Assignment();
     assignment->opened(AceClassUtility_Assignments::className, filePath);
     QObject::connect(assignment, SIGNAL(rejected()),
-                     this, SLOT(dialogClosed()));
-    QObject::connect(assignment, SIGNAL(assignmentDeleted(QString)),
-                     this, SLOT(assignmentDeleted(QString)));
+                     this, SLOT(dialog_closed()));
+    QObject::connect(assignment, SIGNAL(assignment_deleted(QString)),
+                     this, SLOT(assignment_deleted(QString)));
     assignment->show();
     hide();
 }
 
-void AceClassUtility_Assignments::assignmentDeleted(QString filePath)
+void AceClassUtility_Assignments::assignment_deleted(QString filePath)
 {
     QPushButton *button = ui->assignments->widget()->findChild<QPushButton *>(filePath);
     button->deleteLater();
@@ -150,9 +150,9 @@ void AceClassUtility_Assignments::on_newAssignmentButton_released()
     AceClassUtility_NewAssignment *newAssignment = new AceClassUtility_NewAssignment();
     newAssignment->opened(AceClassUtility_Assignments::className);
     QObject::connect(newAssignment, SIGNAL(rejected()),
-                     this, SLOT(dialogClosed()));
+                     this, SLOT(dialog_closed()));
     QObject::connect(newAssignment, SIGNAL(assignmentCreated(QString)),
-                     this, SLOT(assignmentOpened(QString)));
+                     this, SLOT(assignment_opened(QString)));
     newAssignment->show();
     hide();
 }

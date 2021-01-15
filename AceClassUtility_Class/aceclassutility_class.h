@@ -41,7 +41,7 @@ public slots:
     void opened(QString className);
 
 private slots:
-    void dialogClosed();
+    void dialog_closed();
 
     void on_backButton_released();
 

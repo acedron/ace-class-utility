@@ -19,11 +19,11 @@
 #include "aceclassutility_newattendance.h"
 #include "ui_aceclassutility_newattendance.h"
 
+#include <QFile>
 #include <QStandardPaths>
-#include <QCheckBox>
 #include <QJsonDocument>
 #include <QJsonObject>
-#include <QFile>
+#include <QCheckBox>
 
 AceClassUtility_NewAttendance::AceClassUtility_NewAttendance(QWidget *parent) :
     QDialog(parent),
@@ -61,7 +61,7 @@ void AceClassUtility_NewAttendance::opened(QString className)
             QCheckBox *checkBox = new QCheckBox();
             checkBox->setText(AceClassUtility_NewAttendance::students[i].toString());
             QObject::connect(checkBox, SIGNAL(stateChanged(int)),
-                             this, SLOT(studentStateChanged(int)));
+                             this, SLOT(student_state_changed(int)));
             ui->studentList->widget()->layout()->addWidget(checkBox);
         }
         f.close();
@@ -69,7 +69,7 @@ void AceClassUtility_NewAttendance::opened(QString className)
         AceClassUtility_NewAttendance::students = QJsonArray();
 }
 
-void AceClassUtility_NewAttendance::studentStateChanged(int state)
+void AceClassUtility_NewAttendance::student_state_changed(int state)
 {
     QCheckBox *checkBoxSender = qobject_cast<QCheckBox *>(sender());
     QString studentName = checkBoxSender->text();

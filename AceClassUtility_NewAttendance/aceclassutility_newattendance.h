@@ -40,7 +40,7 @@ public slots:
     void opened(QString className);
 
 private slots:
-    void studentStateChanged(int state);
+    void student_state_changed(int state);
 
     void on_cancelButton_released();
 

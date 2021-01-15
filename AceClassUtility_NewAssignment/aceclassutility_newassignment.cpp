@@ -19,8 +19,8 @@
 #include "aceclassutility_newassignment.h"
 #include "ui_aceclassutility_newassignment.h"
 
-#include <QStandardPaths>
 #include <QFile>
+#include <QStandardPaths>
 #include <QJsonDocument>
 #include <QJsonObject>
 

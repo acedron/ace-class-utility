@@ -19,12 +19,12 @@
 #include "aceclassutility_attendances.h"
 #include "ui_aceclassutility_attendances.h"
 
-#include "../AceClassUtility_NewAttendance/aceclassutility_newattendance.h"
 #include "../AceClassUtility_Attendance/aceclassutility_attendance.h"
+#include "../AceClassUtility_NewAttendance/aceclassutility_newattendance.h"
 
-#include <QStandardPaths>
 #include <QDir>
 #include <QFile>
+#include <QStandardPaths>
 #include <QJsonDocument>
 #include <QJsonObject>
 
@@ -76,28 +76,28 @@ void AceClassUtility_Attendances::opened(QString className)
             button->setFont(font);
             ui->attendances->widget()->layout()->addWidget(button);
             QObject::connect(button, SIGNAL(released()),
-                             this, SLOT(attendanceOpened()));
+                             this, SLOT(attendance_opened()));
             button->show();
             f.close();
         }
     }
 }
 
-void AceClassUtility_Attendances::dialogClosed()
+void AceClassUtility_Attendances::dialog_closed()
 {
     show();
 }
 
-void AceClassUtility_Attendances::attendanceTaken(QString filePath)
+void AceClassUtility_Attendances::attendance_created(QString filePath)
 {
     AceClassUtility_Attendance *attendance = new AceClassUtility_Attendance();
     attendance->show();
     QObject::connect(attendance, SIGNAL(finished(int)),
-                     this, SLOT(dialogClosed()));
+                     this, SLOT(dialog_closed()));
     attendance->opened(AceClassUtility_Attendances::className, filePath);
 }
 
-void AceClassUtility_Attendances::attendanceOpened()
+void AceClassUtility_Attendances::attendance_opened()
 {
     QPushButton *buttonSender = qobject_cast<QPushButton *>(sender());
     QString filePath = buttonSender->objectName();
@@ -105,7 +105,7 @@ void AceClassUtility_Attendances::attendanceOpened()
     AceClassUtility_Attendance *attendance = new AceClassUtility_Attendance();
     attendance->show();
     QObject::connect(attendance, SIGNAL(finished(int)),
-                     this, SLOT(dialogClosed()));
+                     this, SLOT(dialog_closed()));
     attendance->opened(AceClassUtility_Attendances::className, filePath);
     hide();
 }
@@ -120,9 +120,9 @@ void AceClassUtility_Attendances::on_takeAttendanceButton_released()
     AceClassUtility_NewAttendance *takeAttendance = new AceClassUtility_NewAttendance();
     takeAttendance->show();
     QObject::connect(takeAttendance, SIGNAL(rejected()),
-                     this, SLOT(dialogClosed()));
-    QObject::connect(takeAttendance, SIGNAL(attendanceTaken(QString)),
-                     this, SLOT(attendanceTaken(QString)));
+                     this, SLOT(dialog_closed()));
+    QObject::connect(takeAttendance, SIGNAL(attendance_created(QString)),
+                     this, SLOT(attendance_created(QString)));
     takeAttendance->opened(AceClassUtility_Attendances::className);
     hide();
 }

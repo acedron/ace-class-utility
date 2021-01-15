@@ -36,11 +36,11 @@ public slots:
     void opened(QString className);
 
 private slots:
-    void dialogClosed();
+    void dialog_closed();
 
-    void attendanceTaken(QString filePath);
+    void attendance_created(QString filePath);
 
-    void attendanceOpened();
+    void attendance_opened();
 
     void on_backButton_released();
 

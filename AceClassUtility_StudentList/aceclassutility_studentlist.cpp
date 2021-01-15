@@ -19,10 +19,10 @@
 #include "aceclassutility_studentlist.h"
 #include "ui_aceclassutility_studentlist.h"
 
-#include <QStandardPaths>
-#include <QJsonDocument>
-#include <QJsonArray>
 #include <QFile>
+#include <QStandardPaths>
+#include <QJsonArray>
+#include <QJsonDocument>
 
 AceClassUtility_StudentList::AceClassUtility_StudentList(QWidget *parent) :
     QDialog(parent),

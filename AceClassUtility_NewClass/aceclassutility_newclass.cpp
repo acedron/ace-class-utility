@@ -19,9 +19,9 @@
 #include "aceclassutility_newclass.h"
 #include "ui_aceclassutility_newclass.h"
 
-#include <QStandardPaths>
 #include <QDir>
 #include <QFile>
+#include <QStandardPaths>
 #include <QJsonDocument>
 #include <QJsonObject>
 
