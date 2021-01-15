@@ -128,7 +128,7 @@ void AceClassUtility_Assignments::assignment_opened(QString filePath)
     assignment->opened(AceClassUtility_Assignments::className, filePath);
     QObject::connect(assignment, SIGNAL(rejected()),
                      this, SLOT(dialog_closed()));
-    QObject::connect(assignment, SIGNAL(assignment_deleted(QString)),
+    QObject::connect(assignment, SIGNAL(assignmentDeleted(QString)),
                      this, SLOT(assignment_deleted(QString)));
     assignment->show();
     hide();

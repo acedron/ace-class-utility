@@ -88,7 +88,7 @@ void AceClassUtility_NewAttendance::on_confirmButton_released()
         ui->statusLabel->setText("Please create a student list first!");
     } else {
         QFile f(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/" +
-                AceClassUtility_NewAttendance::className + "/attendance/" +
+                AceClassUtility_NewAttendance::className + "/attendances/" +
                 AceClassUtility_NewAttendance::attendanceDateTime.toString(Qt::ISODate) + ".json");
         if (f.open(QIODevice::WriteOnly | QIODevice::Text)) {
             QJsonObject attendance;

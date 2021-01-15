@@ -64,12 +64,17 @@ void AceClassUtility::loading_start()
     ui->main->setEnabled(false);
 }
 
-void AceClassUtility::loading_stop(QString newClassName)
+void AceClassUtility::loading_stopNoRegen()
 {
     ui->loading->hide();
     ui->loading->setEnabled(false);
     ui->main->show();
     ui->main->setEnabled(true);
+}
+
+void AceClassUtility::loading_stop(QString newClassName)
+{
+    AceClassUtility::loading_stopNoRegen();
 
     QDir d(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation));
     QStringList classes = d.entryList(QDir::Dirs | QDir::NoDotAndDotDot, QDir::Name);
@@ -136,7 +141,7 @@ void AceClassUtility::on_newClassButton_released()
 {
     AceClassUtility_NewClass *newClass = new AceClassUtility_NewClass();
     QObject::connect(newClass, SIGNAL(rejected()),
-                     this, SLOT(loading_stop()));
+                     this, SLOT(loading_stopNoRegen()));
     QObject::connect(newClass, SIGNAL(createdClass(QString)),
                      this, SLOT(loading_stop(QString)));
     newClass->show();

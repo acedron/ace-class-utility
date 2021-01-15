@@ -35,6 +35,8 @@ public:
 private slots:
     void loading_start();
 
+    void loading_stopNoRegen();
+
     void loading_stop(QString newClassName = "");
 
     void class_opened();
