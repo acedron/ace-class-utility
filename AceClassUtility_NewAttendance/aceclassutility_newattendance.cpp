@@ -19,6 +19,7 @@
 #include "aceclassutility_newattendance.h"
 #include "ui_aceclassutility_newattendance.h"
 
+#include <QStandardPaths>
 #include <QCheckBox>
 #include <QJsonDocument>
 #include <QJsonObject>
@@ -49,7 +50,8 @@ void AceClassUtility_NewAttendance::opened(QString className)
     layout->setAlignment(Qt::AlignTop);
     ui->studentList->widget()->setLayout(layout);
 
-    QFile f("AceClassUtility/" + AceClassUtility_NewAttendance::className + "/studentList.json");
+    QFile f(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/" +
+            AceClassUtility_NewAttendance::className + "/studentList.json");
     if (f.open(QIODevice::ReadOnly | QIODevice::Text)) {
         QString jsonString = f.readAll();
         QJsonDocument doc = QJsonDocument::fromJson(jsonString.toUtf8());
@@ -85,7 +87,8 @@ void AceClassUtility_NewAttendance::on_confirmButton_released()
     if (AceClassUtility_NewAttendance::students.isEmpty()) {
         ui->statusLabel->setText("Please create a student list first!");
     } else {
-        QFile f("AceClassUtility/" + AceClassUtility_NewAttendance::className + "/attendance/" +
+        QFile f(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/" +
+                AceClassUtility_NewAttendance::className + "/attendance/" +
                 AceClassUtility_NewAttendance::attendanceDateTime.toString(Qt::ISODate) + ".json");
         if (f.open(QIODevice::WriteOnly | QIODevice::Text)) {
             QJsonObject attendance;
@@ -113,7 +116,8 @@ void AceClassUtility_NewAttendance::on_confirmButton_released()
             QTextStream out(&f);
             out << doc.toJson();
             f.close();
-            emit attendanceTaken("AceClassUtility/" + AceClassUtility_NewAttendance::className + "/attendances/" +
+            emit attendanceTaken(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/" +
+                                 AceClassUtility_NewAttendance::className + "/attendances/" +
                                  AceClassUtility_NewAttendance::attendanceDateTime.toString(Qt::ISODate) + ".json");
             QDialog::accept();
         } else

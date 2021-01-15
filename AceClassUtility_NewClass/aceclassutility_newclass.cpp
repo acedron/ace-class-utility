@@ -19,6 +19,7 @@
 #include "aceclassutility_newclass.h"
 #include "ui_aceclassutility_newclass.h"
 
+#include <QStandardPaths>
 #include <QDir>
 #include <QFile>
 #include <QXmlStreamWriter>
@@ -46,17 +47,19 @@ void AceClassUtility_NewClass::on_confirmButton_released()
     if (className.isEmpty())
         ui->statusLabel->setText("Please enter a class name first!");
     else {
-        QDir d("AceClassUtility");
+        QDir d(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation));
         if (d.exists(className + "/"))
             ui->statusLabel->setText("Class already exists!");
         else {
             d.mkdir(className);
 
-            QDir dd("AceClassUtility/" + className);
+            QDir dd(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/" +
+                    className);
             dd.mkdir("attendances");
             dd.mkdir("assignments");
 
-            QFile f("AceClassUtility/" + className + "/class.xml");
+            QFile f(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/" +
+                    className + "/class.xml");
             if (f.open(QIODevice::WriteOnly | QIODevice::Text)) {
                 QXmlStreamWriter xml(&f);
                 xml.setAutoFormatting(true);

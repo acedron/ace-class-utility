@@ -19,11 +19,12 @@
 #include "aceclassutility.h"
 #include "ui_aceclassutility.h"
 
-#include "../AceClassUtility_NewClass/aceclassutility_newclass.h"
 #include "../AceClassUtility_Class/aceclassutility_class.h"
+#include "../AceClassUtility_NewClass/aceclassutility_newclass.h"
 
-#include <QFile>
 #include <QDir>
+#include <QFile>
+#include <QStandardPaths>
 
 AceClassUtility::AceClassUtility(QWidget *parent)
     : QMainWindow(parent)
@@ -31,26 +32,23 @@ AceClassUtility::AceClassUtility(QWidget *parent)
 {
     ui->setupUi(this);
 
-    AceClassUtility::startLoading();
+    AceClassUtility::loading_start();
 
     QVBoxLayout *layout = new QVBoxLayout();
     layout->setAlignment(Qt::AlignTop);
     ui->classes->widget()->setLayout(layout);
 
-    if (!QDir("AceClassUtility").exists())
-        QDir().mkdir("AceClassUtility");
+    if (!QDir(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)).exists())
+        QDir().mkdir(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation));
 
-    QDir d("AceClassUtility");
+    QDir d(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation));
     if (d.isEmpty()) {
         AceClassUtility_NewClass *newClass = new AceClassUtility_NewClass();
+        QObject::connect(newClass, SIGNAL(finished(int)),
+                         this, SLOT(loading_stop()));
         newClass->show();
-
-        QObject::connect(newClass, SIGNAL(rejected()),
-                         this, SLOT(discardExit()));
-        QObject::connect(newClass, SIGNAL(accepted()),
-                         this, SLOT(stopLoadingAndRegenerate()));
     } else
-        AceClassUtility::stopLoadingAndRegenerate();
+        AceClassUtility::loading_stop();
 }
 
 AceClassUtility::~AceClassUtility()
@@ -58,34 +56,44 @@ AceClassUtility::~AceClassUtility()
     delete ui;
 }
 
-void AceClassUtility::startLoading()
+void AceClassUtility::loading_start()
 {
     ui->loading->show();
     ui->loading->setEnabled(true);
     ui->main->hide();
     ui->main->setEnabled(false);
-
-
 }
 
-void AceClassUtility::stopLoading()
+void AceClassUtility::loading_stop(QString newClassName)
 {
     ui->loading->hide();
     ui->loading->setEnabled(false);
     ui->main->show();
     ui->main->setEnabled(true);
-}
 
-void AceClassUtility::stopLoadingAndRegenerate()
-{
-    AceClassUtility::stopLoading();
-
-    QDir d("AceClassUtility");
-    QStringList classes = d.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
-    for (int i = 0; i < classes.size(); i++) {
+    QDir d(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation));
+    QStringList classes = d.entryList(QDir::Dirs | QDir::NoDotAndDotDot, QDir::Name);
+    if (newClassName.isEmpty())
+        for (int i = 0; i < classes.size(); i++) {
+            QPushButton *button = new QPushButton();
+            QObject::connect(button, SIGNAL(released()),
+                             this, SLOT(class_opened()));
+            button->setText(classes[i]);
+            button->setObjectName(classes[i]);
+            button->setFlat(true);
+            button->setIcon(QIcon::fromTheme("accessories-text-editor"));
+            QFont font = button->font();
+            font.setBold(true);
+            button->setFont(font);
+            ui->classes->widget()->layout()->addWidget(button);
+            button->show();
+        }
+    else {
         QPushButton *button = new QPushButton();
-        button->setText(classes[i]);
-        button->setObjectName("classButton_" + QString::number(i));
+        QObject::connect(button, SIGNAL(released()),
+                         this, SLOT(class_opened()));
+        button->setText(newClassName);
+        button->setObjectName(newClassName);
         button->setFlat(true);
         button->setIcon(QIcon::fromTheme("accessories-text-editor"));
         QFont font = button->font();
@@ -93,67 +101,44 @@ void AceClassUtility::stopLoadingAndRegenerate()
         button->setFont(font);
         ui->classes->widget()->layout()->addWidget(button);
         button->show();
-        QObject::connect(button, SIGNAL(released()),
-                         this, SLOT(openClass()));
     }
+
 }
 
-void AceClassUtility::stopLoadingCreatedNewClass(QString newClassName)
-{
-    QDir d("AceClassUtility");
-    QStringList classes = d.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
-    QPushButton *button = new QPushButton();
-    button->setText(newClassName);
-    button->setObjectName("classButton_" + QString::number(classes.size() - 1));
-    button->setFlat(true);
-    button->setIcon(QIcon(QString("accessories-text-editor")));
-    QFont font = button->font();
-    font.setBold(true);
-    button->setFont(font);
-    ui->classes->widget()->layout()->addWidget(button);
-    button->show();
-    QObject::connect(button, SIGNAL(released()),
-                     this, SLOT(openClass()));
-
-    AceClassUtility::stopLoading();
-}
-
-void AceClassUtility::openClass()
+void AceClassUtility::class_opened()
 {
     QPushButton *buttonSender = qobject_cast<QPushButton *>(sender());
     QString className = buttonSender->text();
 
-    AceClassUtility_Class *classWindow = new AceClassUtility_Class();
-    classWindow->show();
-    QObject::connect(classWindow, SIGNAL(backPressed()),
-                     this, SLOT(closedClass()));
-    classWindow->opened(className);
+    AceClassUtility_Class *classDialog = new AceClassUtility_Class();
+    QObject::connect(classDialog, SIGNAL(backPressed()),
+                     this, SLOT(class_closed()));
+    QObject::connect(classDialog, SIGNAL(classDeleted(QString)),
+                     this, SLOT(class_deleted(QString)));
+    classDialog->opened(className);
+    classDialog->show();
     hide();
 }
 
-void AceClassUtility::closedClass()
+void AceClassUtility::class_deleted(QString className)
 {
-    show();
+    AceClassUtility::class_closed();
+    QPushButton *button = ui->classes->widget()->findChild<QPushButton *>(className);
+    button->deleteLater();
 }
 
-void AceClassUtility::discardExit()
+void AceClassUtility::class_closed()
 {
-    QDir d("AceClassUtility");
-
-    if (d.removeRecursively())
-        QApplication::exit(0);
-    else
-        QApplication::exit(1);
+    show();
 }
 
 void AceClassUtility::on_newClassButton_released()
 {
     AceClassUtility_NewClass *newClass = new AceClassUtility_NewClass();
-    newClass->show();
-    AceClassUtility::startLoading();
-
     QObject::connect(newClass, SIGNAL(rejected()),
-                     this, SLOT(stopLoading()));
+                     this, SLOT(loading_stop()));
     QObject::connect(newClass, SIGNAL(createdClass(QString)),
-                     this, SLOT(stopLoadingCreatedNewClass(QString)));
+                     this, SLOT(loading_stop(QString)));
+    newClass->show();
+    AceClassUtility::loading_start();
 }

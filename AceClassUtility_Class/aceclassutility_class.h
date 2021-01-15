@@ -35,6 +35,8 @@ public:
 signals:
     void backPressed();
 
+    void classDeleted(QString className);
+
 public slots:
     void opened(QString className);
 

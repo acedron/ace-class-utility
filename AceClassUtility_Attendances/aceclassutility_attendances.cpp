@@ -22,6 +22,7 @@
 #include "../AceClassUtility_NewAttendance/aceclassutility_newattendance.h"
 #include "../AceClassUtility_Attendance/aceclassutility_attendance.h"
 
+#include <QStandardPaths>
 #include <QDir>
 #include <QFile>
 #include <QJsonDocument>
@@ -49,7 +50,8 @@ void AceClassUtility_Attendances::opened(QString className)
     layout->setAlignment(Qt::AlignTop);
     ui->attendances->widget()->setLayout(layout);
 
-    QDir d("AceClassUtility/" + AceClassUtility_Attendances::className + "/attendances/");
+    QDir d(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/" +
+           AceClassUtility_Attendances::className + "/attendances/");
     QStringList attendances = d.entryList(QDir::Files | QDir::NoDotAndDotDot, QDir::Time);
     for (int i = 0; i < attendances.size(); i++) {
         QFile f(d.filePath(attendances[i]));

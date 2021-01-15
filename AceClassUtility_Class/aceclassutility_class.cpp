@@ -23,6 +23,7 @@
 #include "../AceClassUtility_Assignments/aceclassutility_assignments.h"
 #include "../AceClassUtility_StudentList/aceclassutility_studentlist.h"
 
+#include <QStandardPaths>
 #include <QDir>
 
 AceClassUtility_Class::AceClassUtility_Class(QWidget *parent) :
@@ -79,11 +80,12 @@ void AceClassUtility_Class::on_assignmentsButton_released()
 
 void AceClassUtility_Class::on_deleteClassButton_released()
 {
-    QDir d("AceClassUtility/" + AceClassUtility_Class::className);
-    if (d.removeRecursively())
-        QApplication::exit(0);
-    else
-        QApplication::exit(1);
+    QDir d(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/" +
+           AceClassUtility_Class::className);
+    if (d.removeRecursively()) {
+        emit classDeleted(AceClassUtility_Class::className);
+        QDialog::reject();
+    }
 }
 
 void AceClassUtility_Class::on_studentListButton_released()

@@ -19,6 +19,7 @@
 #include "aceclassutility_newassignment.h"
 #include "ui_aceclassutility_newassignment.h"
 
+#include <QStandardPaths>
 #include <QFile>
 #include <QJsonDocument>
 #include <QJsonObject>
@@ -62,8 +63,8 @@ void AceClassUtility_NewAssignment::on_createButton_released()
     if (assignmentName.isEmpty())
         ui->statusLabel->setText("Please type assignment name first!");
     else {
-        QFile f("AceClassUtility/" + AceClassUtility_NewAssignment::className + "/assignments/" +
-                assignmentName + ".json");
+        QFile f(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/" +
+                AceClassUtility_NewAssignment::className + "/assignments/" + assignmentName + ".json");
         if (f.exists())
             ui->statusLabel->setText("Assignment already exists!");
         else if (f.open(QIODevice::WriteOnly | QIODevice::Text)) {
@@ -76,8 +77,8 @@ void AceClassUtility_NewAssignment::on_createButton_released()
             QTextStream out(&f);
             out << doc.toJson();
             f.close();
-            emit assignmentCreated("AceClassUtility/" + AceClassUtility_NewAssignment::className + "/assignments/" +
-                                   assignmentName + ".json");
+            emit assignmentCreated(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/" +
+                                   AceClassUtility_NewAssignment::className + "/assignments/" + assignmentName + ".json");
             QDialog::accept();
         } else
             ui->statusLabel->setText("An error occured while creating assignment!");

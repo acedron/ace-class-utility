@@ -22,6 +22,7 @@
 #include "../AceClassUtility_NewAssignment/aceclassutility_newassignment.h"
 #include "../AceClassUtility_Assignment/aceclassutility_assignment.h"
 
+#include <QStandardPaths>
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
@@ -51,7 +52,8 @@ void AceClassUtility_Assignments::opened(QString className)
     layout->setAlignment(Qt::AlignTop);
     ui->assignments->widget()->setLayout(layout);
 
-    QDir d("AceClassUtility/" + AceClassUtility_Assignments::className + "/assignments/");
+    QDir d(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/" +
+           AceClassUtility_Assignments::className + "/assignments/");
     QStringList assignments = d.entryList(QDir::Files | QDir::NoDotAndDotDot, QDir::Time);
     for (int i = 0; i < assignments.size(); i++) {
         QFile f(d.filePath(assignments[i]));

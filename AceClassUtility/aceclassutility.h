@@ -33,19 +33,15 @@ public:
     ~AceClassUtility();
 
 private slots:
-    void startLoading();
+    void loading_start();
 
-    void stopLoading();
+    void loading_stop(QString newClassName = "");
 
-    void stopLoadingAndRegenerate();
+    void class_opened();
 
-    void stopLoadingCreatedNewClass(QString newClassName);
+    void class_deleted(QString className);
 
-    void openClass();
-
-    void closedClass();
-
-    void discardExit();
+    void class_closed();
 
     void on_newClassButton_released();
 

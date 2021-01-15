@@ -19,6 +19,7 @@
 #include "aceclassutility_studentlist.h"
 #include "ui_aceclassutility_studentlist.h"
 
+#include <QStandardPaths>
 #include <QJsonDocument>
 #include <QJsonArray>
 #include <QFile>
@@ -41,7 +42,8 @@ void AceClassUtility_StudentList::opened(QString className)
     ui->titleLabel->setText(AceClassUtility_StudentList::className + " - Student List");
     setWindowTitle("Ace Class Utility - " + AceClassUtility_StudentList::className + " - Student List");
 
-    QFile f("AceClassUtility/" + AceClassUtility_StudentList::className + "/studentList.json");
+    QFile f(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/" +
+            AceClassUtility_StudentList::className + "/studentList.json");
     if (f.open(QIODevice::ReadOnly | QIODevice::Text)) {
         QString jsonString = f.readAll();
         QJsonDocument doc = QJsonDocument::fromJson(jsonString.toUtf8());
@@ -69,7 +71,8 @@ void AceClassUtility_StudentList::on_saveButton_released()
     QJsonArray studentArray = QJsonArray::fromStringList(students);
     doc.setArray(studentArray);
 
-    QFile f("AceClassUtility/" + AceClassUtility_StudentList::className + "/studentList.json");
+    QFile f(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/" +
+            AceClassUtility_StudentList::className + "/studentList.json");
     if (f.open(QIODevice::WriteOnly | QIODevice::Text)) {
         QTextStream out(&f);
         out << doc.toJson();
