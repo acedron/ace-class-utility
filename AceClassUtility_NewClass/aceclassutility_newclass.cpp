@@ -22,7 +22,8 @@
 #include <QStandardPaths>
 #include <QDir>
 #include <QFile>
-#include <QXmlStreamWriter>
+#include <QJsonDocument>
+#include <QJsonObject>
 
 AceClassUtility_NewClass::AceClassUtility_NewClass(QWidget *parent) :
     QDialog(parent),
@@ -59,15 +60,16 @@ void AceClassUtility_NewClass::on_confirmButton_released()
             dd.mkdir("assignments");
 
             QFile f(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/" +
-                    className + "/class.xml");
+                    className + "/class.json");
             if (f.open(QIODevice::WriteOnly | QIODevice::Text)) {
-                QXmlStreamWriter xml(&f);
-                xml.setAutoFormatting(true);
-                xml.writeStartDocument();
-                xml.writeStartElement("properties");
-                xml.writeTextElement("name", className);
-                xml.writeEndElement();
+                QJsonObject properties;
+                properties.insert("name", QJsonValue(className));
+
+                QJsonDocument doc(properties);
+                QTextStream out(&f);
+                out << doc.toJson();
                 f.close();
+
                 emit createdClass(className);
                 QDialog::accept();
             } else

@@ -164,7 +164,7 @@
         <string>Attendances</string>
        </property>
        <property name="icon">
-        <iconset theme="contact">
+        <iconset theme="contacts">
          <normaloff>.</normaloff>.</iconset>
        </property>
        <property name="iconSize">
@@ -243,7 +243,8 @@
         <string>Student List</string>
        </property>
        <property name="icon">
-        <iconset theme="document-edit"/>
+        <iconset theme="document-edit">
+         <normaloff>.</normaloff>.</iconset>
        </property>
        <property name="iconSize">
         <size>
