@@ -82,7 +82,7 @@
         <string>Absents: &lt;absentCount&gt;</string>
        </property>
        <property name="icon">
-        <iconset theme="dialog-no">
+        <iconset theme="cancel">
          <normaloff>.</normaloff>.</iconset>
        </property>
        <property name="iconSize">

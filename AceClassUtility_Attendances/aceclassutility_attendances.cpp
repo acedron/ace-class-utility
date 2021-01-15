@@ -69,7 +69,7 @@ void AceClassUtility_Attendances::opened(QString className)
             button->setText(attendanceDateTime.toString(locale.dateTimeFormat(QLocale::LongFormat)));
             button->setObjectName(d.filePath(attendances[i]));
             button->setFlat(true);
-            button->setIcon(QIcon::fromTheme("document-info"));
+            button->setIcon(QIcon::fromTheme("contact"));
             button->setIconSize(QSize(48, 48));
             QFont font = button->font();
             font.setBold(true);
