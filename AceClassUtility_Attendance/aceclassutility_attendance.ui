@@ -99,7 +99,7 @@
     </layout>
    </item>
    <item row="5" column="0">
-    <layout class="QHBoxLayout" name="buttonLayout">
+    <layout class="QHBoxLayout" name="bottomLayout">
      <item>
       <widget class="QPushButton" name="backButton">
        <property name="font">

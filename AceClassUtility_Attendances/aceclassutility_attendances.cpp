@@ -43,7 +43,7 @@ AceClassUtility_Attendances::~AceClassUtility_Attendances()
 void AceClassUtility_Attendances::opened(QString className)
 {
     AceClassUtility_Attendances::className = className;
-    ui->classNameLabel->setText(AceClassUtility_Attendances::className + " - Attendances");
+    ui->titleLabel->setText(AceClassUtility_Attendances::className + " - Attendances");
     setWindowTitle("Ace Class Utility - " + AceClassUtility_Attendances::className + " - Attendances");
 
     QGridLayout *layout = new QGridLayout();

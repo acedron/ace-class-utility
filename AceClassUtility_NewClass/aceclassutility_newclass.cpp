@@ -62,10 +62,10 @@ void AceClassUtility_NewClass::on_confirmButton_released()
             QFile f(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/" +
                     className + "/class.json");
             if (f.open(QIODevice::WriteOnly | QIODevice::Text)) {
-                QJsonObject properties;
-                properties.insert("name", QJsonValue(className));
+                QJsonObject obj;
+                obj.insert("name", QJsonValue(className));
 
-                QJsonDocument doc(properties);
+                QJsonDocument doc(obj);
                 QTextStream out(&f);
                 out << doc.toJson();
                 f.close();

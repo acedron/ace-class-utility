@@ -68,12 +68,11 @@ void AceClassUtility_NewAssignment::on_createButton_released()
         if (f.exists())
             ui->statusLabel->setText("Assignment already exists!");
         else if (f.open(QIODevice::WriteOnly | QIODevice::Text)) {
-            QJsonObject assignment;
+            QJsonObject obj;
 
-            assignment.insert("dueDate", QJsonValue(assignmentDueDate.toString(Qt::ISODate)));
-            assignment.insert("desc", QJsonValue(assignmentDesc));
+            obj.insert("desc", QJsonValue(assignmentDesc));
 
-            QJsonDocument doc(assignment);
+            QJsonDocument doc(obj);
             QTextStream out(&f);
             out << doc.toJson();
             f.close();

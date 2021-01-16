@@ -91,7 +91,7 @@ void AceClassUtility_NewAttendance::on_confirmButton_released()
                 AceClassUtility_NewAttendance::className + "/attendances/" +
                 AceClassUtility_NewAttendance::attendanceDateTime.toString(Qt::ISODate) + ".json");
         if (f.open(QIODevice::WriteOnly | QIODevice::Text)) {
-            QJsonObject attendance;
+            QJsonObject obj;
 
             QJsonObject students;
             int attendeeCount = 0;
@@ -108,11 +108,11 @@ void AceClassUtility_NewAttendance::on_confirmButton_released()
                     students.insert(keys[i], QJsonValue(false));
                 }
             }
-            attendance.insert("attendance", QJsonValue(students));
-            attendance.insert("attendeeCount", QJsonValue(attendeeCount));
-            attendance.insert("absentCount", QJsonValue(absentCount));
+            obj.insert("attendance", QJsonValue(students));
+            obj.insert("attendeeCount", QJsonValue(attendeeCount));
+            obj.insert("absentCount", QJsonValue(absentCount));
 
-            QJsonDocument doc(attendance);
+            QJsonDocument doc(obj);
             QTextStream out(&f);
             out << doc.toJson();
             f.close();

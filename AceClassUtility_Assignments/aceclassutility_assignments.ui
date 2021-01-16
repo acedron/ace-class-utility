@@ -37,7 +37,7 @@
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="2" column="0">
-    <layout class="QHBoxLayout" name="bottomButtonLayout">
+    <layout class="QHBoxLayout" name="bottomLayout">
      <item>
       <widget class="QPushButton" name="backButton">
        <property name="font">
