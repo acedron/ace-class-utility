@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>AceClassUtility_CreateAssignment</class>
- <widget class="QDialog" name="AceClassUtility_CreateAssignment">
+ <class>AceClassUtility_NewAssignment</class>
+ <widget class="QDialog" name="AceClassUtility_NewAssignment">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -29,7 +29,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Ace Class Utility - &lt;className&gt; - Create Assignment</string>
+   <string>Ace Class Utility - &lt;className&gt; - New Assignment</string>
   </property>
   <property name="windowIcon">
    <iconset resource="../main.qrc">
@@ -187,7 +187,7 @@
         <string>Cancel</string>
        </property>
        <property name="icon">
-        <iconset theme="dialog-cancel">
+        <iconset theme="cancel">
          <normaloff>.</normaloff>.</iconset>
        </property>
        <property name="flat">

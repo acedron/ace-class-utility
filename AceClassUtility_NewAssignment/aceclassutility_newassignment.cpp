@@ -16,42 +16,43 @@
 ** along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ****************************************************************************/
 
-#include "aceclassutility_createassignment.h"
-#include "ui_aceclassutility_createassignment.h"
+#include "aceclassutility_newassignment.h"
+#include "ui_aceclassutility_newassignment.h"
 
 #include <QFile>
+#include <QStandardPaths>
 #include <QJsonDocument>
 #include <QJsonObject>
 
-AceClassUtility_CreateAssignment::AceClassUtility_CreateAssignment(QWidget *parent) :
+AceClassUtility_NewAssignment::AceClassUtility_NewAssignment(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::AceClassUtility_CreateAssignment)
+    ui(new Ui::AceClassUtility_NewAssignment)
 {
     ui->setupUi(this);
 }
 
-AceClassUtility_CreateAssignment::~AceClassUtility_CreateAssignment()
+AceClassUtility_NewAssignment::~AceClassUtility_NewAssignment()
 {
     delete ui;
 }
 
-void AceClassUtility_CreateAssignment::opened(QString className)
+void AceClassUtility_NewAssignment::opened(QString className)
 {
-    AceClassUtility_CreateAssignment::className = className;
-    ui->titleLabel->setText(AceClassUtility_CreateAssignment::className + " - Create Assignment");
-    setWindowTitle("Ace Class Utility - " + AceClassUtility_CreateAssignment::className + " - Create Assignment");
+    AceClassUtility_NewAssignment::className = className;
+    ui->titleLabel->setText(AceClassUtility_NewAssignment::className + " - New Assignment");
+    setWindowTitle("Ace Class Utility - " + AceClassUtility_NewAssignment::className + " - New Assignment");
 
     QLocale locale = QLocale::system();
     ui->assignmentDueEdit->setDisplayFormat(locale.dateTimeFormat(QLocale::LongFormat));
     ui->assignmentDueEdit->setDateTime(QDateTime::currentDateTime().addDays(1));
 }
 
-void AceClassUtility_CreateAssignment::on_cancelButton_released()
+void AceClassUtility_NewAssignment::on_cancelButton_released()
 {
     QDialog::reject();
 }
 
-void AceClassUtility_CreateAssignment::on_createButton_released()
+void AceClassUtility_NewAssignment::on_createButton_released()
 {
     QDialog::accept();
 
@@ -62,22 +63,21 @@ void AceClassUtility_CreateAssignment::on_createButton_released()
     if (assignmentName.isEmpty())
         ui->statusLabel->setText("Please type assignment name first!");
     else {
-        QFile f("AceClassUtility/" + AceClassUtility_CreateAssignment::className + "/assignments/" +
-                assignmentName + ".json");
+        QFile f(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/" +
+                AceClassUtility_NewAssignment::className + "/assignments/" + assignmentName + ".json");
         if (f.exists())
             ui->statusLabel->setText("Assignment already exists!");
         else if (f.open(QIODevice::WriteOnly | QIODevice::Text)) {
-            QJsonObject assignment;
+            QJsonObject obj;
 
-            assignment.insert("dueDate", QJsonValue(assignmentDueDate.toString(Qt::ISODate)));
-            assignment.insert("desc", QJsonValue(assignmentDesc));
+            obj.insert("desc", QJsonValue(assignmentDesc));
 
-            QJsonDocument doc(assignment);
+            QJsonDocument doc(obj);
             QTextStream out(&f);
             out << doc.toJson();
             f.close();
-            emit assignmentCreated("AceClassUtility/" + AceClassUtility_CreateAssignment::className + "/assignments/" +
-                                   assignmentName + ".json");
+            emit assignmentCreated(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/" +
+                                   AceClassUtility_NewAssignment::className + "/assignments/" + assignmentName + ".json");
             QDialog::accept();
         } else
             ui->statusLabel->setText("An error occured while creating assignment!");

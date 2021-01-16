@@ -166,7 +166,7 @@
         </widget>
        </item>
        <item row="2" column="0">
-        <layout class="QHBoxLayout" name="newClassLayout">
+        <layout class="QHBoxLayout" name="bottomLayout">
          <item>
           <spacer name="horizontalSpacer">
            <property name="orientation">

@@ -36,11 +36,11 @@ public slots:
     void opened(QString className);
 
 private slots:
-    void dialogClosed();
+    void dialog_closed();
 
-    void assignmentOpened(QString filePath = "");
+    void assignment_opened(QString filePath = "");
 
-    void assignmentDeleted(QString filePath);
+    void assignment_deleted(QString filePath);
 
     void on_backButton_released();
 

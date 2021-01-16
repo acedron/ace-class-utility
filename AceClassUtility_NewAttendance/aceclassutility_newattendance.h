@@ -15,33 +15,43 @@
 ** You should have received a copy of the GNU General Public License
 ** along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ****************************************************************************/
-#ifndef ACECLASSUTILITY_CREATECLASS_H
-#define ACECLASSUTILITY_CREATECLASS_H
+#ifndef ACECLASSUTILITY_NEWATTENDANCE_H
+#define ACECLASSUTILITY_NEWATTENDANCE_H
 
 #include <QDialog>
+#include <QJsonArray>
 
 namespace Ui {
-class AceClassUtility_CreateClass;
+class AceClassUtility_NewAttendance;
 }
 
-class AceClassUtility_CreateClass : public QDialog
+class AceClassUtility_NewAttendance : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit AceClassUtility_CreateClass(QWidget *parent = nullptr);
-    ~AceClassUtility_CreateClass();
+    explicit AceClassUtility_NewAttendance(QWidget *parent = nullptr);
+    ~AceClassUtility_NewAttendance();
 
 signals:
-    void createdClass(QString newClassName);
+    void attendanceCreated(QString filePath);
+
+public slots:
+    void opened(QString className);
 
 private slots:
+    void student_stateChanged(int state);
+
     void on_cancelButton_released();
 
     void on_confirmButton_released();
 
 private:
-    Ui::AceClassUtility_CreateClass *ui;
+    Ui::AceClassUtility_NewAttendance *ui;
+    QString className;
+    QDateTime attendanceDateTime;
+    QJsonArray students;
+    QMap<QString, int> attendanceMap;
 };
 
-#endif // ACECLASSUTILITY_CREATECLASS_H
+#endif // ACECLASSUTILITY_NEWATTENDANCE_H

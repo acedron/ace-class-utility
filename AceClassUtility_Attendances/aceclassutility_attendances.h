@@ -36,15 +36,13 @@ public slots:
     void opened(QString className);
 
 private slots:
-    void dialogClosed();
+    void dialog_closed();
 
-    void attendanceTaken(QString filePath);
-
-    void attendanceOpened();
+    void attendance_opened(QString filePath = "");
 
     void on_backButton_released();
 
-    void on_takeAttendanceButton_released();
+    void on_newAttendanceButton_released();
 
 private:
     Ui::AceClassUtility_Attendances *ui;

@@ -82,7 +82,7 @@
         <string>Absents: &lt;absentCount&gt;</string>
        </property>
        <property name="icon">
-        <iconset theme="dialog-no">
+        <iconset theme="cancel">
          <normaloff>.</normaloff>.</iconset>
        </property>
        <property name="iconSize">
@@ -99,7 +99,7 @@
     </layout>
    </item>
    <item row="5" column="0">
-    <layout class="QHBoxLayout" name="buttonLayout">
+    <layout class="QHBoxLayout" name="bottomLayout">
      <item>
       <widget class="QPushButton" name="backButton">
        <property name="font">

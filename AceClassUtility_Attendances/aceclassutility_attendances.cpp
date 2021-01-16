@@ -19,11 +19,12 @@
 #include "aceclassutility_attendances.h"
 #include "ui_aceclassutility_attendances.h"
 
-#include "../AceClassUtility_TakeAttendance/aceclassutility_takeattendance.h"
 #include "../AceClassUtility_Attendance/aceclassutility_attendance.h"
+#include "../AceClassUtility_NewAttendance/aceclassutility_newattendance.h"
 
 #include <QDir>
 #include <QFile>
+#include <QStandardPaths>
 #include <QJsonDocument>
 #include <QJsonObject>
 
@@ -42,14 +43,15 @@ AceClassUtility_Attendances::~AceClassUtility_Attendances()
 void AceClassUtility_Attendances::opened(QString className)
 {
     AceClassUtility_Attendances::className = className;
-    ui->classNameLabel->setText(AceClassUtility_Attendances::className + " - Attendances");
+    ui->titleLabel->setText(AceClassUtility_Attendances::className + " - Attendances");
     setWindowTitle("Ace Class Utility - " + AceClassUtility_Attendances::className + " - Attendances");
 
     QGridLayout *layout = new QGridLayout();
     layout->setAlignment(Qt::AlignTop);
     ui->attendances->widget()->setLayout(layout);
 
-    QDir d("AceClassUtility/" + AceClassUtility_Attendances::className + "/attendance/");
+    QDir d(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/" +
+           AceClassUtility_Attendances::className + "/attendances/");
     QStringList attendances = d.entryList(QDir::Files | QDir::NoDotAndDotDot, QDir::Time);
     for (int i = 0; i < attendances.size(); i++) {
         QFile f(d.filePath(attendances[i]));
@@ -67,43 +69,58 @@ void AceClassUtility_Attendances::opened(QString className)
             button->setText(attendanceDateTime.toString(locale.dateTimeFormat(QLocale::LongFormat)));
             button->setObjectName(d.filePath(attendances[i]));
             button->setFlat(true);
-            button->setIcon(QIcon::fromTheme("document-info"));
+            button->setIcon(QIcon::fromTheme("contact"));
             button->setIconSize(QSize(48, 48));
             QFont font = button->font();
             font.setBold(true);
             button->setFont(font);
             ui->attendances->widget()->layout()->addWidget(button);
             QObject::connect(button, SIGNAL(released()),
-                             this, SLOT(attendanceOpened()));
+                             this, SLOT(attendance_opened()));
             button->show();
             f.close();
         }
     }
 }
 
-void AceClassUtility_Attendances::dialogClosed()
+void AceClassUtility_Attendances::dialog_closed()
 {
     show();
 }
 
-void AceClassUtility_Attendances::attendanceTaken(QString filePath)
+void AceClassUtility_Attendances::attendance_opened(QString filePath)
 {
+    if (filePath.isEmpty()) {
+        QPushButton *buttonSender = qobject_cast<QPushButton *>(sender());
+        filePath = buttonSender->objectName();
+    } else {
+        QFile f(filePath);
+        if (f.open(QIODevice::ReadOnly | QIODevice::Text)) {
+            QFileInfo fileInfo(f.fileName());
+            QString fname(fileInfo.baseName());
+            QDateTime attendanceDateTime = QDateTime::fromString(fname, Qt::ISODate);
+            QLocale locale = QLocale::system();
+
+            QPushButton *button = new QPushButton();
+            button->setText(attendanceDateTime.toString(locale.dateTimeFormat(QLocale::LongFormat)));
+            button->setObjectName(filePath);
+            button->setFlat(true);
+            button->setIcon(QIcon::fromTheme("contact"));
+            button->setIconSize(QSize(48, 48));
+            QFont font = button->font();
+            font.setBold(true);
+            button->setFont(font);
+            ui->attendances->widget()->layout()->addWidget(button);
+            QObject::connect(button, SIGNAL(released()),
+                             this, SLOT(attendance_opened()));
+            button->show();
+        }
+    }
+
     AceClassUtility_Attendance *attendance = new AceClassUtility_Attendance();
     attendance->show();
     QObject::connect(attendance, SIGNAL(finished(int)),
-                     this, SLOT(dialogClosed()));
-    attendance->opened(AceClassUtility_Attendances::className, filePath);
-}
-
-void AceClassUtility_Attendances::attendanceOpened()
-{
-    QPushButton *buttonSender = qobject_cast<QPushButton *>(sender());
-    QString filePath = buttonSender->objectName();
-
-    AceClassUtility_Attendance *attendance = new AceClassUtility_Attendance();
-    attendance->show();
-    QObject::connect(attendance, SIGNAL(finished(int)),
-                     this, SLOT(dialogClosed()));
+                     this, SLOT(dialog_closed()));
     attendance->opened(AceClassUtility_Attendances::className, filePath);
     hide();
 }
@@ -113,14 +130,14 @@ void AceClassUtility_Attendances::on_backButton_released()
     QDialog::reject();
 }
 
-void AceClassUtility_Attendances::on_takeAttendanceButton_released()
+void AceClassUtility_Attendances::on_newAttendanceButton_released()
 {
-    AceClassUtility_TakeAttendance *takeAttendance = new AceClassUtility_TakeAttendance();
-    takeAttendance->show();
-    QObject::connect(takeAttendance, SIGNAL(rejected()),
-                     this, SLOT(dialogClosed()));
-    QObject::connect(takeAttendance, SIGNAL(attendanceTaken(QString)),
-                     this, SLOT(attendanceTaken(QString)));
-    takeAttendance->opened(AceClassUtility_Attendances::className);
+    AceClassUtility_NewAttendance *newAttendance = new AceClassUtility_NewAttendance();
+    newAttendance->show();
+    QObject::connect(newAttendance, SIGNAL(rejected()),
+                     this, SLOT(dialog_closed()));
+    QObject::connect(newAttendance, SIGNAL(attendanceCreated(QString)),
+                     this, SLOT(attendance_opened(QString)));
+    newAttendance->opened(AceClassUtility_Attendances::className);
     hide();
 }

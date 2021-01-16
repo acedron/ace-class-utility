@@ -36,11 +36,11 @@ void AceClassUtility_Assignment::opened(QString className, QString filePath)
 
         QString jsonString = f.readAll();
         QJsonDocument doc = QJsonDocument::fromJson(jsonString.toUtf8());
-        QJsonObject assignment = doc.object();
-        ui->assignmentDesc->setText(assignment.value("desc").toString());
+        QJsonObject obj = doc.object();
+        ui->assignmentDesc->setText(obj.value("desc").toString());
 
         QLocale locale = QLocale::system();
-        QDateTime assignmentDateTime = QDateTime::fromString(assignment.value("dueDate").toString(), Qt::ISODate);
+        QDateTime assignmentDateTime = QDateTime::fromString(obj.value("dueDate").toString(), Qt::ISODate);
         ui->assignmentDateTime->setText("Due: " + assignmentDateTime.toString(locale.dateTimeFormat(QLocale::ShortFormat)));
 
         f.close();

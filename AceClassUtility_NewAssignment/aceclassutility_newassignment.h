@@ -15,43 +15,37 @@
 ** You should have received a copy of the GNU General Public License
 ** along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ****************************************************************************/
-#ifndef ACECLASSUTILITY_TAKEATTENDANCE_H
-#define ACECLASSUTILITY_TAKEATTENDANCE_H
+#ifndef ACECLASSUTILITY_NEWASSIGNMENT_H
+#define ACECLASSUTILITY_NEWASSIGNMENT_H
 
 #include <QDialog>
-#include <QJsonArray>
 
 namespace Ui {
-class AceClassUtility_TakeAttendance;
+class AceClassUtility_NewAssignment;
 }
 
-class AceClassUtility_TakeAttendance : public QDialog
+class AceClassUtility_NewAssignment : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit AceClassUtility_TakeAttendance(QWidget *parent = nullptr);
-    ~AceClassUtility_TakeAttendance();
+    explicit AceClassUtility_NewAssignment(QWidget *parent = nullptr);
+    ~AceClassUtility_NewAssignment();
 
 signals:
-    void attendanceTaken(QString filePath);
+    void assignmentCreated(QString filePath);
 
 public slots:
     void opened(QString className);
 
 private slots:
-    void studentStateChanged(int state);
-
     void on_cancelButton_released();
 
-    void on_confirmButton_released();
+    void on_createButton_released();
 
 private:
-    Ui::AceClassUtility_TakeAttendance *ui;
+    Ui::AceClassUtility_NewAssignment *ui;
     QString className;
-    QDateTime attendanceDateTime;
-    QJsonArray students;
-    QMap<QString, int> attendanceMap;
 };
 
-#endif // ACECLASSUTILITY_TAKEATTENDANCE_H
+#endif // ACECLASSUTILITY_NEWASSIGNMENT_H

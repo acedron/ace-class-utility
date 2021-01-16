@@ -19,11 +19,12 @@
 #include "aceclassutility_class.h"
 #include "ui_aceclassutility_class.h"
 
-#include "../AceClassUtility_Attendances/aceclassutility_attendances.h"
 #include "../AceClassUtility_Assignments/aceclassutility_assignments.h"
+#include "../AceClassUtility_Attendances/aceclassutility_attendances.h"
 #include "../AceClassUtility_StudentList/aceclassutility_studentlist.h"
 
 #include <QDir>
+#include <QStandardPaths>
 
 AceClassUtility_Class::AceClassUtility_Class(QWidget *parent) :
     QDialog(parent),
@@ -44,7 +45,7 @@ void AceClassUtility_Class::opened(QString className)
     setWindowTitle("Ace Class Utility - " + AceClassUtility_Class::className);
 }
 
-void AceClassUtility_Class::dialogClosed()
+void AceClassUtility_Class::dialog_closed()
 {
     show();
 }
@@ -61,7 +62,7 @@ void AceClassUtility_Class::on_attendanceButton_released()
     attendances->show();
 
     QObject::connect(attendances, SIGNAL(finished(int)),
-                     this, SLOT(dialogClosed()));
+                     this, SLOT(dialog_closed()));
     attendances->opened(AceClassUtility_Class::className);
     hide();
 }
@@ -72,18 +73,19 @@ void AceClassUtility_Class::on_assignmentsButton_released()
     assignments->show();
 
     QObject::connect(assignments, SIGNAL(finished(int)),
-                     this, SLOT(dialogClosed()));
+                     this, SLOT(dialog_closed()));
     assignments->opened(AceClassUtility_Class::className);
     hide();
 }
 
 void AceClassUtility_Class::on_deleteClassButton_released()
 {
-    QDir d("AceClassUtility/" + AceClassUtility_Class::className);
-    if (d.removeRecursively())
-        QApplication::exit(0);
-    else
-        QApplication::exit(1);
+    QDir d(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/" +
+           AceClassUtility_Class::className);
+    if (d.removeRecursively()) {
+        emit classDeleted(AceClassUtility_Class::className);
+        QDialog::reject();
+    }
 }
 
 void AceClassUtility_Class::on_studentListButton_released()
@@ -92,7 +94,7 @@ void AceClassUtility_Class::on_studentListButton_released()
     studentList->show();
 
     QObject::connect(studentList, SIGNAL(finished(int)),
-                     this, SLOT(dialogClosed()));
+                     this, SLOT(dialog_closed()));
     studentList->opened(AceClassUtility_Class::className);
     hide();
 }

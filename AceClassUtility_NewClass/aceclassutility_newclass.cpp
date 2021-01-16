@@ -16,55 +16,60 @@
 ** along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ****************************************************************************/
 
-#include "aceclassutility_createclass.h"
-#include "ui_aceclassutility_createclass.h"
+#include "aceclassutility_newclass.h"
+#include "ui_aceclassutility_newclass.h"
 
 #include <QDir>
 #include <QFile>
-#include <QXmlStreamWriter>
+#include <QStandardPaths>
+#include <QJsonDocument>
+#include <QJsonObject>
 
-AceClassUtility_CreateClass::AceClassUtility_CreateClass(QWidget *parent) :
+AceClassUtility_NewClass::AceClassUtility_NewClass(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::AceClassUtility_CreateClass)
+    ui(new Ui::AceClassUtility_NewClass)
 {
     ui->setupUi(this);
 }
 
-AceClassUtility_CreateClass::~AceClassUtility_CreateClass()
+AceClassUtility_NewClass::~AceClassUtility_NewClass()
 {
     delete ui;
 }
 
-void AceClassUtility_CreateClass::on_cancelButton_released()
+void AceClassUtility_NewClass::on_cancelButton_released()
 {
     QDialog::reject();
 }
 
-void AceClassUtility_CreateClass::on_confirmButton_released()
+void AceClassUtility_NewClass::on_confirmButton_released()
 {
     QString className = ui->classNameEdit->text();
     if (className.isEmpty())
         ui->statusLabel->setText("Please enter a class name first!");
     else {
-        QDir d("AceClassUtility");
+        QDir d(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation));
         if (d.exists(className + "/"))
             ui->statusLabel->setText("Class already exists!");
         else {
             d.mkdir(className);
 
-            QDir dd("AceClassUtility/" + className);
-            dd.mkdir("attendance");
+            QDir dd(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/" +
+                    className);
+            dd.mkdir("attendances");
             dd.mkdir("assignments");
 
-            QFile f("AceClassUtility/" + className + "/class.xml");
+            QFile f(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/" +
+                    className + "/class.json");
             if (f.open(QIODevice::WriteOnly | QIODevice::Text)) {
-                QXmlStreamWriter xml(&f);
-                xml.setAutoFormatting(true);
-                xml.writeStartDocument();
-                xml.writeStartElement("properties");
-                xml.writeTextElement("name", className);
-                xml.writeEndElement();
+                QJsonObject obj;
+                obj.insert("name", QJsonValue(className));
+
+                QJsonDocument doc(obj);
+                QTextStream out(&f);
+                out << doc.toJson();
                 f.close();
+
                 emit createdClass(className);
                 QDialog::accept();
             } else
