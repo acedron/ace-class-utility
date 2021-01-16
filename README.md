@@ -18,7 +18,7 @@ You can download the executable from the **[release](https://github.com/acedron/
 
 ### Windows
 
-You can download the executable from the **[release](https://github.com/acedron/ace-class-utility/releases/latest)** page.
+You can download the executable from the **release** page.
 
 ------
 
@@ -30,7 +30,7 @@ Windows and GNU/Linux releases were built on `x64` operating systems, and they h
 
 ## Building
 
-This project was built using **Qt Creator** and **qmake**.
+This project was built using **[Qt Creator](https://www.qt.io/product/development-tools)** and **[qmake](https://doc.qt.io/qt-5/qmake-manual.html)**.
 
 ### GNU/Linux
 
@@ -47,4 +47,4 @@ You can build the project using **Qt Creator**.
 
 ------
 
-This project is licensed under the terms of ***GNU General Public License v3.0***. See **[license](https://github.com/acedron/abstouch-nux/blob/master/LICENSE)** page.
+This project is licensed under the terms of ***[GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.en.html)***. See **[license](https://github.com/acedron/abstouch-nux/blob/master/LICENSE)** page.
