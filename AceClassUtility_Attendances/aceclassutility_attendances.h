@@ -38,9 +38,7 @@ public slots:
 private slots:
     void dialog_closed();
 
-    void attendance_created(QString filePath);
-
-    void attendance_opened();
+    void attendance_opened(QString filePath = "");
 
     void on_backButton_released();
 

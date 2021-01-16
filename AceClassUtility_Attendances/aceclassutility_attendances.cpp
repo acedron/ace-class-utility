@@ -88,19 +88,34 @@ void AceClassUtility_Attendances::dialog_closed()
     show();
 }
 
-void AceClassUtility_Attendances::attendance_created(QString filePath)
+void AceClassUtility_Attendances::attendance_opened(QString filePath)
 {
-    AceClassUtility_Attendance *attendance = new AceClassUtility_Attendance();
-    attendance->show();
-    QObject::connect(attendance, SIGNAL(finished(int)),
-                     this, SLOT(dialog_closed()));
-    attendance->opened(AceClassUtility_Attendances::className, filePath);
-}
+    if (filePath.isEmpty()) {
+        QPushButton *buttonSender = qobject_cast<QPushButton *>(sender());
+        filePath = buttonSender->objectName();
+    } else {
+        QFile f(filePath);
+        if (f.open(QIODevice::ReadOnly | QIODevice::Text)) {
+            QFileInfo fileInfo(f.fileName());
+            QString fname(fileInfo.baseName());
+            QDateTime attendanceDateTime = QDateTime::fromString(fname, Qt::ISODate);
+            QLocale locale = QLocale::system();
 
-void AceClassUtility_Attendances::attendance_opened()
-{
-    QPushButton *buttonSender = qobject_cast<QPushButton *>(sender());
-    QString filePath = buttonSender->objectName();
+            QPushButton *button = new QPushButton();
+            button->setText(attendanceDateTime.toString(locale.dateTimeFormat(QLocale::LongFormat)));
+            button->setObjectName(filePath);
+            button->setFlat(true);
+            button->setIcon(QIcon::fromTheme("contact"));
+            button->setIconSize(QSize(48, 48));
+            QFont font = button->font();
+            font.setBold(true);
+            button->setFont(font);
+            ui->attendances->widget()->layout()->addWidget(button);
+            QObject::connect(button, SIGNAL(released()),
+                             this, SLOT(attendance_opened()));
+            button->show();
+        }
+    }
 
     AceClassUtility_Attendance *attendance = new AceClassUtility_Attendance();
     attendance->show();
@@ -122,7 +137,7 @@ void AceClassUtility_Attendances::on_newAttendanceButton_released()
     QObject::connect(newAttendance, SIGNAL(rejected()),
                      this, SLOT(dialog_closed()));
     QObject::connect(newAttendance, SIGNAL(attendanceCreated(QString)),
-                     this, SLOT(attendance_created(QString)));
+                     this, SLOT(attendance_opened(QString)));
     newAttendance->opened(AceClassUtility_Attendances::className);
     hide();
 }
