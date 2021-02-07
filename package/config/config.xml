@@ -11,7 +11,7 @@
     <StartMenuDir>Ace Class Utility</StartMenuDir>
 
     <TargetDir>@ApplicationsDirUser@/AceClassUtility</TargetDir>
-    <AdminTargetDir>@ApplicationsDir@/AceClassUtility</TargetDir>
+    <AdminTargetDir>@ApplicationsDir@/AceClassUtility</AdminTargetDir>
     <RemoteRepositories>
         <Repository>
             <Url>https://github.com/acedron/ace-class-utility</Url>
