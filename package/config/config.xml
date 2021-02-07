@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Installer>
+    <Name>Ace Class Utility</Name>
+    <Version>1.0.1</Version>
+    <Title>Ace Class Utility -</Title>
+    <Publisher>acedron</Publisher>
+    <ProductUrl>https://github.com/acedron/ace-class-utility</ProductUrl>
+    <InstallerWindowIcon>icon</InstallerWindowIcon>
+    <InstallerApplicationIcon>icon</InstallerApplicationIcon>
+    <Logo>icon.png</Logo>
+    <StartMenuDir>Ace Class Utility</StartMenuDir>
+
+    <TargetDir>@ApplicationsDirX86@/AceClassUtility</TargetDir>
+    <RemoteRepositories>
+        <Repository>
+            <Url>https://github.com/acedron/ace-class-utility</Url>
+        </Repository>
+    </RemoteRepositories>
+</Installer>

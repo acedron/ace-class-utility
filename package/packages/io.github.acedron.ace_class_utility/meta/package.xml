@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package>
+    <Name>io.github.acedron.ace_class_utility</Name>
+    <DisplayName>Ace Class Utility</DisplayName>
+    <Description>A Basic Utility App for Classes.</Description>
+    <Version>1.0.1</Version>
+    <ReleaseDate>2021-02-07</ReleaseDate>
+    <Licenses>
+        <License name="The GNU General Public License v3.0 (GPLv3)" file="LICENSE" />
+    </Licenses>
+    <Default>false</Default>
+    <Script>installscript.qs</Script>
+    <ForcedInstallation>true</ForcedInstallation>
+</Package>

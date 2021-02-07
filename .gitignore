@@ -97,3 +97,7 @@ compile_commands.json
 #
 
 icon.xcf
+
+# Package Binaries
+!package/packages/io.github.acedron.ace_class_utility/data/ace_class_utility/ace_class_utility-linux_x64
+!package/packages/io.github.acedron.ace_class_utility/data/ace_class_utility/ace_class_utility-win32_x64.exe

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package>
+    <Name>io.github.acedron.installer</Name>
+    <DisplayName>acedron Installer</DisplayName>
+    <Description>acedron Software Installer</Description>
+    <Version>1.0.0</Version>
+    <ReleaseDate>2020-02-07</ReleaseDate>
+    <Virtual>true</Virtual>
+</Package>
