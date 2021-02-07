@@ -10,7 +10,8 @@
     <Logo>icon.png</Logo>
     <StartMenuDir>Ace Class Utility</StartMenuDir>
 
-    <TargetDir>@ApplicationsDirX86@/AceClassUtility</TargetDir>
+    <TargetDir>@ApplicationsDirUser@/AceClassUtility</TargetDir>
+    <AdminTargetDir>@ApplicationsDir@/AceClassUtility</TargetDir>
     <RemoteRepositories>
         <Repository>
             <Url>https://github.com/acedron/ace-class-utility</Url>
