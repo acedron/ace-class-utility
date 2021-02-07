@@ -14,11 +14,13 @@
 
 ### GNU/Linux
 
-You can download the executable from the **[release](https://github.com/acedron/ace-class-utility/releases/latest)** page.
+You can download the installer from the **[release](https://github.com/acedron/ace-class-utility/releases/latest)** page.
+
+You might have to install Qt5 in some systems.
 
 ### Windows
 
-You can download the executable from the **release** page.
+You can download the installer from the **release** page.
 
 ------
 
@@ -35,15 +37,15 @@ This project was built using **[Qt Creator](https://www.qt.io/product/developmen
 ### GNU/Linux
 
 ```bash
-$ git clone https://github.com/acedron/abstouch-nux.git
-$ cd abstouch-nux
+$ git clone https://github.com/acedron/ace-class-utility.git
+$ cd ace-class-utility
 $ qmake
 $ make
 ```
 
 ### Windows
 
-You can build the project using **Qt Creator**.
+You can build the project using **Qt Creator** and **qmake**.
 
 ------
 
