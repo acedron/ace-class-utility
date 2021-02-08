@@ -6,6 +6,8 @@
     <a href="https://github.com/acedron/ace-class-utility/commits/master"><img src="https://img.shields.io/maintenance/yes/2021?style=for-the-badge" alt="Maintained" /></a>
     <a href="https://github.com/acedron/ace-class-utility/commit/master"><img src="https://img.shields.io/github/last-commit/acedron/ace-class-utility?style=for-the-badge" alt="Latest Commit" /></a>
   </h6>
+  <h3 align="center">This project is now archived!</h3>
+  <h5 align="center">I want to continue with different projects, so I won't work on this repository anymore. You can always fork it and develop it further though!</h5>
 </p>
 
 ------
